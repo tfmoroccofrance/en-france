@@ -66,8 +66,8 @@ const structuredDataItems = [
 >
   <head>
     <!-- Ezoic Privacy Scripts (must be first) -->
-    <script is:inline data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
     <script is:inline data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
+    <script is:inline data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
 
     <!-- Ezoic Header Script -->
     <script is:inline async src="//www.ezojs.com/ezoic/sa.min.js"></script>
@@ -156,8 +156,7 @@ const structuredDataItems = [
       ))
     }
 
-    <!-- Enable RSS feed auto-discovery  -->
-    <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
+    <!-- Enable RSS feed auto-discovery -->
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -168,9 +167,6 @@ const structuredDataItems = [
     <meta name="theme-color" content="" />
 
     {
-      // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
-      // include google-site-verification tag in the heading
-      // Learn more: https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag
       PUBLIC_GOOGLE_SITE_VERIFICATION && (
         <meta
           name="google-site-verification"
@@ -212,7 +208,24 @@ const structuredDataItems = [
     </script>
   </head>
   <body>
+
+    <!-- Ezoic top_of_page | 101 -->
+    <div id="ezoic-pub-ad-placeholder-101"></div>
+    <script is:inline>
+      ezstandalone.cmd.push(function() {
+        ezstandalone.showAds(101);
+      });
+    </script>
+
     <slot />
+
+    <!-- Ezoic bottom_of_page | 103 -->
+    <div id="ezoic-pub-ad-placeholder-103"></div>
+    <script is:inline>
+      ezstandalone.cmd.push(function() {
+        ezstandalone.showAds(103);
+      });
+    </script>
 
     <!-- Load full theme logic -->
     <script src="../scripts/theme.ts"></script>

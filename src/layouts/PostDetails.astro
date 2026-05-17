@@ -13,6 +13,7 @@ import BackToTopButton from "@/components/BackToTopButton.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
 import RecipeMeta from "@/components/RecipeMeta.astro";
 import AdSlot from "@/components/AdSlot.astro";
+import EzoicAd from "@/components/EzoicAd.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import { createBreadcrumbSchema, createFaqSchema, createRecipeSchema } from "@/utils/schema";
@@ -156,7 +157,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       ))}
     </div>
 
-    <!-- ── TITLE — centré, typographie premium ── -->
+    <!-- ── TITLE ── -->
     <div class="mx-auto max-w-3xl text-center mb-6">
       <h1
         transition:name={slugifyStr(title.replaceAll(".", "-"))}
@@ -165,6 +166,14 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       >
         {title}
       </h1>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         Ezoic | 102 | under_page_title
+         أعلى ربح — مباشرة تحت العنوان
+    ══════════════════════════════════════ -->
+    <div class="mx-auto max-w-3xl my-4">
+      <EzoicAd id={102} />
     </div>
 
     <!-- ── Description / Excerpt ── -->
@@ -184,7 +193,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       </div>
     </div>
 
-    <!-- ── Recipe Quick Stats (prepTime, cookTime…) ── -->
+    <!-- ── Recipe Quick Stats ── -->
     <div class="mx-auto max-w-2xl text-center mb-8">
       <RecipeMeta {prepTime} {cookTime} {totalTime} {recipeYield} />
     </div>
@@ -196,12 +205,10 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       <div class="h-px flex-1 bg-foreground/40"></div>
     </div>
 
-
-    <!-- ── Ad Slot ── -->
+    <!-- ── Ad Slot (original) ── -->
     <AdSlot label="Emplacement publicitaire" />
 
     <!-- ── Corps de l'article ── -->
-    <!-- La featured image est déjà affichée ci-dessus; le contenu ne doit PAS réafficher la première image -->
     <article
       id="article"
       class="post-article mx-auto mt-8 w-full max-w-3xl prose prose-lg
@@ -215,8 +222,16 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       <Content />
     </article>
 
+    <!-- ══════════════════════════════════════
+         Ezoic | 109 | under_first_paragraph
+         بعد المحتوى مباشرة — ربح عالي
+    ══════════════════════════════════════ -->
+    <div class="mx-auto max-w-3xl my-6">
+      <EzoicAd id={109} />
+    </div>
+
     <!-- ══════════════════════════════════════════════
-         RECIPE CARD  (style WP Recipe Maker premium)
+         RECIPE CARD
     ══════════════════════════════════════════════ -->
     {(ingredients?.length || instructions?.length) && (
       <section
@@ -292,6 +307,14 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
             </div>
           )}
 
+          <!-- ══════════════════════════════════════
+               Ezoic | 111 | mid_content
+               داخل بطاقة الوصفة — وسط المحتوى
+          ══════════════════════════════════════ -->
+          {ingredients?.length && instructions?.length && (
+            <EzoicAd id={111} />
+          )}
+
           <!-- Instructions -->
           {instructions?.length && (
             <div>
@@ -341,6 +364,14 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
         </div>
       </section>
     )}
+
+    <!-- ══════════════════════════════════════
+         Ezoic | 110 | under_second_paragraph
+         بعد بطاقة الوصفة — ربح ممتاز
+    ══════════════════════════════════════ -->
+    <div class="mx-auto max-w-3xl my-8">
+      <EzoicAd id={110} />
+    </div>
 
     <!-- ── FAQ ── -->
     {faq?.length && (
