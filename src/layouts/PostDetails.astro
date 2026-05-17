@@ -11,6 +11,7 @@ import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
+import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
 import RecipeMeta from "@/components/RecipeMeta.astro";
 import AdSlot from "@/components/AdSlot.astro";
 import EzoicAd from "@/components/EzoicAd.astro";
@@ -161,17 +162,14 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
     <div class="mx-auto max-w-3xl text-center mb-6">
       <h1
         transition:name={slugifyStr(title.replaceAll(".", "-"))}
-        class="font-serif text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl"
+        class="font-serif text-2xl font-bold leading-tight text-foreground sm:text-3xl lg:text-4xl"
         style="font-family: 'Georgia', 'Playfair Display', serif; letter-spacing: -0.02em;"
       >
         {title}
       </h1>
     </div>
 
-    <!-- ══════════════════════════════════════
-         Ezoic | 102 | under_page_title
-         أعلى ربح — مباشرة تحت العنوان
-    ══════════════════════════════════════ -->
+    <!-- Ezoic | 102 | under_page_title -->
     <div class="mx-auto max-w-3xl my-4">
       <EzoicAd id={102} />
     </div>
@@ -183,7 +181,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       </p>
     )}
 
-    <!-- ── Meta: auteur + date + RecipeMeta ── -->
+    <!-- ── Meta: auteur + date ── -->
     <div class="mx-auto max-w-2xl text-center mb-2">
       <div class="flex flex-wrap items-center justify-center gap-3 text-sm text-foreground/55">
         <span class="font-medium">Par {author}</span>
@@ -205,7 +203,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       <div class="h-px flex-1 bg-foreground/40"></div>
     </div>
 
-    <!-- ── Ad Slot (original) ── -->
+    <!-- ── Ad Slot ── -->
     <AdSlot label="Emplacement publicitaire" />
 
     <!-- ── Corps de l'article ── -->
@@ -222,10 +220,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       <Content />
     </article>
 
-    <!-- ══════════════════════════════════════
-         Ezoic | 109 | under_first_paragraph
-         بعد المحتوى مباشرة — ربح عالي
-    ══════════════════════════════════════ -->
+    <!-- Ezoic | 109 | under_first_paragraph -->
     <div class="mx-auto max-w-3xl my-6">
       <EzoicAd id={109} />
     </div>
@@ -239,7 +234,6 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
         class="recipe-card mx-auto mt-14 max-w-3xl overflow-hidden rounded-2xl border border-border shadow-lg"
         aria-label="Fiche recette"
       >
-
         <!-- Card Header -->
         <div class="recipe-card-header bg-accent px-6 py-5 text-background">
           <div class="flex items-center justify-between flex-wrap gap-3">
@@ -307,10 +301,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
             </div>
           )}
 
-          <!-- ══════════════════════════════════════
-               Ezoic | 111 | mid_content
-               داخل بطاقة الوصفة — وسط المحتوى
-          ══════════════════════════════════════ -->
+          <!-- Ezoic | 111 | mid_content -->
           {ingredients?.length && instructions?.length && (
             <EzoicAd id={111} />
           )}
@@ -365,10 +356,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       </section>
     )}
 
-    <!-- ══════════════════════════════════════
-         Ezoic | 110 | under_second_paragraph
-         بعد بطاقة الوصفة — ربح ممتاز
-    ══════════════════════════════════════ -->
+    <!-- Ezoic | 110 | under_second_paragraph -->
     <div class="mx-auto max-w-3xl my-8">
       <EzoicAd id={110} />
     </div>
@@ -425,8 +413,8 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
           <span class="inline-block h-0.5 w-6 bg-accent"></span>
           Recettes liées
         </h2>
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedPosts.map(post => <RecipeCard post={post} />)}
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedPosts.map(post => <DatabaseRecipeCard post={post} />)}
         </div>
       </section>
     )}
@@ -460,7 +448,6 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
 </Layout>
 
 <script is:inline data-astro-rerun>
-  /** Hide first image in article content (already shown in Fiche Recette) */
   function hideFirstArticleImage() {
     const article = document.getElementById("article");
     if (!article) return;
@@ -476,11 +463,9 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
   }
   hideFirstArticleImage();
 
-  /** Progress bar */
   function createProgressBar() {
     const progressContainer = document.createElement("div");
-    progressContainer.className =
-      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+    progressContainer.className = "progress-container fixed top-0 z-10 h-1 w-full bg-background";
     const progressBar = document.createElement("div");
     progressBar.className = "progress-bar h-1 w-0 bg-accent";
     progressBar.id = "myBar";
@@ -491,11 +476,8 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
 
   function updateScrollProgress() {
     document.addEventListener("scroll", () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
       const myBar = document.getElementById("myBar");
       if (myBar) myBar.style.width = scrolled + "%";
@@ -508,8 +490,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
     for (const heading of headings) {
       heading.classList.add("group");
       const link = document.createElement("a");
-      link.className =
-        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.className = "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
       link.href = "#" + heading.id;
       const span = document.createElement("span");
       span.ariaHidden = "true";
@@ -527,8 +508,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       const wrapper = document.createElement("div");
       wrapper.style.position = "relative";
       const computedStyle = getComputedStyle(codeBlock);
-      const hasFileNameOffset =
-        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+      const hasFileNameOffset = computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
       const topClass = hasFileNameOffset ? "top-(--file-name-offset)" : "-top-3";
       const copyButton = document.createElement("button");
       copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
