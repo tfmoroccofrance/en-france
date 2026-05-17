@@ -24,6 +24,7 @@ const trendingDatabasePosts = databaseLatestPosts.slice(0, 3);
 const popularDatabasePosts = databaseLatestPosts.slice(3, 7);
 const categories = categoriesResult.data;
 const heroPost = databaseLatestPosts[0];
+console.log("[hero] heroPost.featuredImage:", heroPost?.featuredImage);
 ---
 
 <Layout
@@ -38,9 +39,7 @@ const heroPost = databaseLatestPosts[0];
     ══════════════════════════════════════ -->
     <section class="bg-[linear-gradient(135deg,#fff7ef,#f7d9c4_55%,#f1b58f)]">
       <div class="app-layout py-8 sm:py-14">
-
-        <!-- موبايل: عمود واحد | ديسكتوب: عمودان -->
-        <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
 
           <!-- النص والبحث -->
           <div class="text-center lg:text-left">
@@ -54,7 +53,7 @@ const heroPost = databaseLatestPosts[0];
               Des recettes francaises, des idees de repas et des conseils cuisine
               penses pour les lecteurs en France.
             </p>
-            <form action="/search/" class="mt-5 flex flex-col gap-3 sm:flex-row sm:max-w-xl sm:mx-auto lg:mx-0">
+            <form action="/search/" class="mt-5 flex flex-col gap-3 sm:flex-row">
               <label class="sr-only" for="home-search">Rechercher une recette</label>
               <input
                 id="home-search"
@@ -69,7 +68,7 @@ const heroPost = databaseLatestPosts[0];
             </form>
           </div>
 
-          <!-- بطاقة الـ Hero -->
+          <!-- بطاقة Hero -->
           {heroPost && (
             <a href={heroPost.url ?? "/"} class="block overflow-hidden rounded-xl bg-white shadow-lg transition hover:shadow-xl">
               <div class="relative">
@@ -110,7 +109,7 @@ const heroPost = databaseLatestPosts[0];
     {featuredPosts.length > 0 && (
       <section id="featured" class="app-layout pt-10 pb-6">
         <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Recettes à la une</h2>
-        <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featuredPosts.slice(0, 3).map((post, index) => (
             <DatabaseRecipeCard post={post} eager={index === 0} />
           ))}
@@ -123,7 +122,7 @@ const heroPost = databaseLatestPosts[0];
     ══════════════════════════════════════ -->
     <section class="app-layout pt-8 pb-6">
       <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Catégories</h2>
-      <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {categories.map(category => (
           <a
             href={category.url}
@@ -148,7 +147,7 @@ const heroPost = databaseLatestPosts[0];
     {hasDatabasePosts && (
       <section id="recent-posts" class="app-layout pt-10 pb-6">
         <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Dernières recettes</h2>
-        <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {databaseLatestPosts.map(post => (
             <DatabaseRecipeCard post={post} />
           ))}
@@ -159,11 +158,11 @@ const heroPost = databaseLatestPosts[0];
     <!-- ══════════════════════════════════════
          TENDANCES + POPULAIRES
     ══════════════════════════════════════ -->
-    <section class="app-layout grid gap-8 pt-8 pb-6 lg:grid-cols-2">
+    <section class="app-layout grid grid-cols-1 gap-8 pt-8 pb-6 lg:grid-cols-2">
 
       <div>
         <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Tendances</h2>
-        <div class="mt-5 grid gap-4">
+        <div class="mt-5 grid grid-cols-1 gap-4">
           {trendingDatabasePosts.map(post => (
             <DatabaseRecipeCard post={post} />
           ))}

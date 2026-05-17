@@ -2,207 +2,71 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
-import AdSlot from "@/components/AdSlot.astro";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import EzoicAd from "@/components/EzoicAd.astro";
 import { SITE } from "@/config";
-import { fetchFeaturedPosts, fetchLatestPosts } from "@/lib/posts";
 import { fetchSeoCategories } from "@/lib/categories";
 
-const [featuredPostsResult, latestPostsResult, categoriesResult] = await Promise.all([
-  fetchFeaturedPosts(3),
-  fetchLatestPosts(SITE.postPerIndex),
-  fetchSeoCategories(),
-]);
-
-const featuredPosts = featuredPostsResult.data;
-const databaseLatestPosts = latestPostsResult.data;
-const hasDatabasePosts = databaseLatestPosts.length > 0;
-const trendingDatabasePosts = databaseLatestPosts.slice(0, 3);
-const popularDatabasePosts = databaseLatestPosts.slice(3, 7);
+const categoriesResult = await fetchSeoCategories();
 const categories = categoriesResult.data;
-const heroPost = databaseLatestPosts[0];
-console.log("[hero] heroPost.featuredImage:", heroPost?.featuredImage);
 ---
 
 <Layout
-  title={`Recettes françaises | ${SITE.title}`}
-  description="Recettes françaises faciles, repas rapides et idées de cuisine maison pour cuisiner simplement au quotidien."
+  title={`Catégories | ${SITE.title}`}
+  description="Parcourez toutes les catégories de recettes françaises : entrées, plats, desserts, et bien plus."
 >
   <Header />
-  <main id="main-content" data-layout="index">
-    <section class="bg-[linear-gradient(135deg,#fff7ef,#f7d9c4_55%,#f1b58f)]">
-      <div class="app-layout grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <div>
-          <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-accent">
-            Cuisine francaise simple et gourmande
-          </p>
-          <h1 class="max-w-3xl text-4xl font-bold leading-tight text-[#432818] sm:text-6xl">
-            Recettes françaises
-          </h1>
-          <p class="mt-4 max-w-2xl text-lg text-[#5f4636]">
-            Des recettes francaises, des idees de repas et des conseils cuisine
-            penses pour les lecteurs en France.
-          </p>
-          <form action="/search/" class="mt-6 flex max-w-xl flex-col gap-3 sm:flex-row">
-            <label class="sr-only" for="home-search">Rechercher une recette</label>
-            <input
-              id="home-search"
-              name="q"
-              type="search"
-              placeholder="Rechercher une recette..."
-              class="min-h-12 flex-1 rounded-md border border-border bg-background px-4 text-foreground shadow-sm"
-            />
-            <button class="min-h-12 rounded-md bg-accent px-5 font-semibold text-background transition hover:opacity-90">
-              Rechercher
-            </button>
-          </form>
-        </div>
-        <div class="overflow-hidden rounded-lg bg-muted shadow-lg">
-          <img
-            src={heroPost?.featuredImage}
-            alt=""
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-            class="block h-[210px] w-full object-cover"
-          />
-          <div class="p-4">
-            <p class="text-sm font-medium text-foreground/70">Recette du moment</p>
-            <p class="mt-1 text-xl font-semibold text-foreground">
-              <a href={heroPost?.url ?? "/"}>{heroPost?.title ?? "Recettes françaises"}</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <main id="main-content" class="app-layout py-10">
 
-    {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class="app-layout pt-12 pb-6"
-        >
-          <h2 class="text-2xl font-semibold tracking-wide">Recettes a la une</h2>
-          <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredPosts.slice(0, 3).map((post, index) => (
-              <DatabaseRecipeCard post={post} eager={index === 0} />
-            ))}
-          </div>
-        </section>
-      )
-    }
+    <!-- ── Breadcrumb ── -->
+    <nav aria-label="Fil d'Ariane" class="mb-6 text-sm text-foreground/50">
+      <a href="/" class="hover:text-accent transition-colors">Accueil</a>
+      <span class="mx-2 opacity-40">/</span>
+      <span class="text-foreground/70">Catégories</span>
+    </nav>
 
-    <section class="app-layout pt-8 pb-6">
-      <h2 class="text-2xl font-semibold tracking-wide">Categories</h2>
-      <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- ── Titre ── -->
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-bold text-foreground sm:text-4xl">
+        Toutes les catégories
+      </h1>
+      <p class="mt-3 text-base text-foreground/60">
+        Explorez nos recettes françaises par catégorie
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         Ezoic | 102 | under_page_title
+    ══════════════════════════════════════ -->
+    <div class="my-6">
+      <EzoicAd id={102} />
+    </div>
+
+    <!-- ── Grille des catégories ── -->
+    {categories.length > 0 ? (
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {categories.map(category => (
           <a
             href={category.url}
-            class="rounded-lg border border-border bg-background p-4 font-semibold shadow-sm transition hover:-translate-y-0.5 hover:border-accent"
+            class="group flex items-center justify-between rounded-xl border border-border bg-background p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
           >
-            {category.name}
+            <span class="text-base font-semibold text-foreground group-hover:text-accent transition-colors">
+              {category.name}
+            </span>
+            <span class="text-accent opacity-0 group-hover:opacity-100 transition-opacity text-lg">→</span>
           </a>
         ))}
       </div>
-    </section>
+    ) : (
+      <p class="text-center text-foreground/60">Aucune catégorie disponible pour le moment.</p>
+    )}
 
-    <AdSlot class="app-layout" label="Emplacement publicitaire accueil" />
-
-    {
-      hasDatabasePosts && (
-        <section id="recent-posts" class="app-layout pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Dernieres recettes</h2>
-          <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {
-              databaseLatestPosts.map(post => <DatabaseRecipeCard post={post} />)
-            }
-          </div>
-        </section>
-      )
-    }
-
-    <section class="app-layout grid gap-8 pt-8 pb-6 lg:grid-cols-2">
-      <div>
-        <h2 class="text-2xl font-semibold tracking-wide">Tendances</h2>
-        <div class="mt-5 grid gap-4">
-          {
-            trendingDatabasePosts.map(post => <DatabaseRecipeCard post={post} />)
-          }
-        </div>
-      </div>
-      <div>
-        <h2 class="text-2xl font-semibold tracking-wide">Articles populaires</h2>
-        <div class="mt-5 space-y-3">
-          {
-            popularDatabasePosts.map(post => (
-              <a href={post.url} class="block rounded-lg border border-border p-4 transition hover:border-accent">
-                <span class="text-sm text-accent">{post.category}</span>
-                <h3 class="mt-1 font-semibold">{post.title}</h3>
-                <p class="mt-1 text-sm text-foreground/70">{post.excerpt}</p>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <section class="bg-muted/35">
-      <div class="app-layout py-12">
-        <h2 class="text-2xl font-semibold">Recevoir les nouvelles recettes</h2>
-        <form id="newsletterForm" class="mt-5 flex max-w-xl flex-col gap-3 sm:flex-row">
-          <label class="sr-only" for="newsletter-email">Adresse email</label>
-          <input
-            id="newsletter-email"
-            type="email"
-            placeholder="votre@email.fr"
-            class="min-h-12 flex-1 rounded-md border border-border bg-background px-4"
-          />
-          <button class="min-h-12 rounded-md bg-accent px-5 font-semibold text-background">
-            S'inscrire
-          </button>
-        </form>
-        <p id="newsletterMsg" class="mt-2 text-sm"></p>
-      </div>
-    </section>
-
-    <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        Toutes les recettes
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
+    <!-- ══════════════════════════════════════
+         Ezoic | 103 | bottom_of_page
+    ══════════════════════════════════════ -->
+    <div class="my-8">
+      <EzoicAd id={103} />
     </div>
+
   </main>
   <Footer />
 </Layout>
-
-<script>
-  import { createClient } from '@supabase/supabase-js';
-  const supabase = createClient(
-    import.meta.env.PUBLIC_SUPABASE_URL,
-    import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-  );
-
-  document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset?.layout;
-    if (indexLayout) {
-      sessionStorage.setItem("backUrl", "/");
-    }
-
-    const form = document.getElementById("newsletterForm") as HTMLFormElement | null;
-    const msg = document.getElementById("newsletterMsg") as HTMLParagraphElement | null;
-    form?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = (document.getElementById("newsletter-email") as HTMLInputElement).value;
-      const { error } = await supabase.from("newsletter_subscribers").insert({ email });
-      if (!error) {
-        msg!.textContent = "Merci pour votre inscription !";
-        form.reset();
-      } else if ((error as any).code === "23505") {
-        msg!.textContent = "Cet email est déjà inscrit.";
-      }
-    });
-  });
-</script>
