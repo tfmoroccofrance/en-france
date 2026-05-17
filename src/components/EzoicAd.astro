@@ -1,0 +1,13 @@
+---
+type Props = {
+  id: number;
+};
+const { id } = Astro.props;
+---
+
+<div id={`ezoic-pub-ad-placeholder-${id}`}></div>
+<script is:inline define:vars={{ id }}>
+  ezstandalone.cmd.push(function () {
+    ezstandalone.showAds(id);
+  });
+</script>
