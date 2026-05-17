@@ -1,0 +1,37 @@
+---
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
+import { SITE } from "@/config";
+import { fetchAllPosts } from "@/lib/posts";
+
+export function getStaticPaths() {
+  return [{ params: { page: undefined } }];
+}
+
+const { data: posts } = await fetchAllPosts();
+---
+
+<Layout title={`Recettes | ${SITE.title}`}>
+  <Header />
+  <Main
+    pageTitle="Articles"
+    pageDesc="Toutes les dernières recettes et articles de cuisine publiés sur En France."
+  >
+    {
+      posts.length > 0 ? (
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map(post => <DatabaseRecipeCard post={post} />)}
+        </div>
+      ) : (
+        <div class="rounded-lg border border-border bg-muted/30 p-5">
+          Aucun article disponible pour le moment.
+        </div>
+      )
+    }
+  </Main>
+
+  <Footer />
+</Layout>

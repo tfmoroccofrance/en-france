@@ -1,0 +1,645 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE } from "@/config";
+---
+
+<Layout
+  title="Contact | En France — Recettes Françaises"
+  description="Contactez En France pour toute question, suggestion de recette ou collaboration. Nous répondons sous 48h. Rejoignez notre communauté de passionnés de cuisine française."
+  canonicalURL="https://tfmorocco.com/contact"
+>
+  <Header />
+
+  <main id="main-content" class="app-layout pb-20">
+
+    <!-- Breadcrumb SEO -->
+    <nav aria-label="Fil d'Ariane" class="mb-8 text-sm text-foreground/50">
+      <a href="/" class="hover:text-accent transition-colors">Accueil</a>
+      <span class="mx-2 opacity-40">/</span>
+      <span class="text-foreground/70">Contact</span>
+    </nav>
+
+    <!-- Hero -->
+    <div class="contact-hero">
+      <div class="hero-text">
+        <span class="label-tag">Nous écrire</span>
+        <h1 class="hero-title">
+          Entrons en <em>contact</em>
+        </h1>
+        <p class="hero-desc">
+          Une question sur une recette, une idée à partager ou une collaboration à proposer ?
+          Nous lisons chaque message avec soin et vous répondons sous 48h.
+        </p>
+      </div>
+
+      <div class="info-cards">
+        <a href="mailto:ftm.contact.1@gmail.com" class="info-card">
+          <span class="info-icon">✉️</span>
+          <div>
+            <div class="info-label">Email général</div>
+            <div class="info-value">ftm.contact.1@gmail.com</div>
+          </div>
+        </a>
+        <a href="mailto:contact@tfmorocco.com" class="info-card">
+          <span class="info-icon">📧</span>
+          <div>
+            <div class="info-label">Email professionnel</div>
+            <div class="info-value">contact@tfmorocco.com</div>
+          </div>
+        </a>
+        <div class="info-card">
+          <span class="info-icon">⏱️</span>
+          <div>
+            <div class="info-label">Délai de réponse</div>
+            <div class="info-value">48h ouvrables</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider">
+      <span>✦</span>
+    </div>
+
+    <!-- Main grid -->
+    <div class="contact-grid">
+
+      <!-- Form -->
+      <section class="form-section">
+        <h2>Envoyez-nous un <em>message</em></h2>
+        <p class="form-intro">
+          Tous les champs marqués d'un astérisque (*) sont obligatoires.
+          Vos données sont protégées conformément au RGPD.
+        </p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="prenom">Prénom <span>*</span></label>
+              <input type="text" id="prenom" name="prenom" placeholder="Marie" required />
+            </div>
+            <div class="field">
+              <label for="nom">Nom <span>*</span></label>
+              <input type="text" id="nom" name="nom" placeholder="Dupont" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Adresse e-mail <span>*</span></label>
+            <input type="email" id="email" name="email" placeholder="votre@email.com" required />
+          </div>
+
+          <div class="field">
+            <label for="objet">Objet de votre message <span>*</span></label>
+            <select id="objet" name="objet" required>
+              <option value="" disabled selected>Sélectionnez un objet</option>
+              <option value="recette">Suggestion de recette</option>
+              <option value="collaboration">Proposition de collaboration</option>
+              <option value="partenariat">Partenariat / Publicité</option>
+              <option value="erreur">Signaler une erreur</option>
+              <option value="autre">Autre demande</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Votre message <span>*</span></label>
+            <textarea id="message" name="message" placeholder="Décrivez votre demande en détail..." required></textarea>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="rgpd" name="rgpd" required />
+            <label for="rgpd">
+              J'accepte que mes données soient utilisées pour traiter ma demande,
+              conformément à la <a href="/politique-de-confidentialite">politique de confidentialité</a>.
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            Envoyer le message
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+
+          <div class="success-msg" id="successMsg">
+            ✅ Merci ! Votre message a bien été envoyé. Nous vous répondrons sous 48 à 72 heures ouvrables.
+          </div>
+
+          <div class="error-msg" id="errorMsg">
+            ❌ Une erreur est survenue. Veuillez réessayer ou nous écrire directement par email.
+          </div>
+        </form>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="contact-sidebar">
+
+        <!-- À propos -->
+        <div class="sidebar-card dark-card">
+          <span class="card-icon">👩‍🍳</span>
+          <h3>À propos d'En France</h3>
+          <p>
+            En France est un site dédié aux recettes françaises authentiques,
+            accessibles à tous. Nous partageons des recettes économiques,
+            faciles et savoureuses pour toute la famille.
+          </p>
+        </div>
+
+        <!-- Recette à partager -->
+        <div class="sidebar-card accent-card">
+          <span class="card-icon">🥘</span>
+          <h3>Une recette à partager ?</h3>
+          <p>
+            Vous avez une recette familiale ou régionale à nous confier ?
+            Envoyez-la-nous — nous serons ravis de la mettre à l'honneur.
+          </p>
+        </div>
+
+        <!-- SEO info box -->
+        <div class="sidebar-info">
+          <h3>Nos catégories de recettes</h3>
+          <ul>
+            <li><a href="/categorie/recettes-facile">Recettes faciles</a></li>
+            <li><a href="/categorie/recettes-economiques">Recettes économiques</a></li>
+            <li><a href="/categorie/repas-rapide">Repas rapides</a></li>
+            <li><a href="/categorie/cuisine">Cuisine française</a></li>
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+
+    <!-- FAQ SEO -->
+    <section class="faq-section">
+      <h2>Questions fréquentes</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>Comment proposer une recette ?</h3>
+          <p>Utilisez le formulaire ci-dessus en sélectionnant "Suggestion de recette" et décrivez votre recette en détail. Nous examinerons chaque proposition avec attention.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Acceptez-vous les collaborations ?</h3>
+          <p>Oui, nous sommes ouverts aux collaborations avec des marques culinaires, des chefs et des créateurs de contenu en lien avec la cuisine française.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Quel est le délai de réponse ?</h3>
+          <p>Nous nous efforçons de répondre à tous les messages sous 48 heures ouvrables. Pour les demandes urgentes, contactez-nous directement par email.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Comment signaler une erreur dans une recette ?</h3>
+          <p>Sélectionnez "Signaler une erreur" dans le formulaire et précisez la recette concernée ainsi que l'erreur constatée. Nous apprécions ces retours qui nous aident à améliorer notre contenu.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Hero */
+  .contact-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 3rem;
+  }
+
+  .label-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+  }
+
+  .label-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--color-accent);
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--color-text-muted, #666);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .info-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-card, #f9f9f9);
+    border: 1px solid var(--color-border, #eee);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .info-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .info-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+  .info-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted, #888);
+    margin-bottom: 3px;
+  }
+
+  .info-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    color: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border, #eee);
+  }
+
+  /* Main grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  /* Form */
+  .form-section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-section h2 em {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .form-intro {
+    font-size: 0.875rem;
+    color: var(--color-text-muted, #888);
+    margin-bottom: 2rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .field {
+    margin-bottom: 1.25rem;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .field label span { color: var(--color-accent); margin-left: 2px; }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: var(--color-card, #f9f9f9);
+    border: 1.5px solid var(--color-border, #e5e5e5);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .checkbox-group label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #666);
+    cursor: pointer;
+    line-height: 1.5;
+  }
+
+  .checkbox-group label a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--color-accent);
+    color: #fff;
+    border: none;
+    padding: 0.875rem 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: opacity 0.2s, transform 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-submit:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .success-msg {
+    display: none;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-left: 4px solid #22c55e;
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    color: #166534;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .error-msg {
+    display: none;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-left: 4px solid #ef4444;
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    color: #991b1b;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  /* Sidebar */
+  .contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .sidebar-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dark-card {
+    background: var(--color-text);
+    color: #fff;
+  }
+
+  .dark-card h3 { color: var(--color-accent); }
+  .dark-card p { color: rgba(255,255,255,0.7); font-size: 0.875rem; line-height: 1.6; }
+
+  .accent-card {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .accent-card h3 { color: #fff; margin-bottom: 0.5rem; }
+  .accent-card p { color: rgba(255,255,255,0.85); font-size: 0.875rem; line-height: 1.6; }
+
+  .card-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .sidebar-info {
+    background: var(--color-card, #f9f9f9);
+    border: 1px solid var(--color-border, #eee);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .sidebar-info h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted, #888);
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-info ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sidebar-info li::before {
+    content: '→ ';
+    color: var(--color-accent);
+  }
+
+  .sidebar-info a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .sidebar-info a:hover { color: var(--color-accent); }
+
+  /* FAQ SEO */
+  .faq-section {
+    border-top: 1px solid var(--color-border, #eee);
+    padding-top: 3rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .faq-item {
+    background: var(--color-card, #f9f9f9);
+    border: 1px solid var(--color-border, #eee);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted, #666);
+    line-height: 1.6;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .contact-hero { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const btn = document.getElementById('submitBtn') as HTMLButtonElement;
+  const successMsg = document.getElementById('successMsg') as HTMLDivElement;
+  const errorMsg = document.getElementById('errorMsg') as HTMLDivElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    btn.textContent = 'Envoi en cours…';
+    btn.disabled = true;
+    errorMsg.style.display = 'none';
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(`${import.meta.env.PUBLIC_SUPABASE_URL}/rest/v1/contact_messages`, {
+        method: 'POST',
+        headers: {
+          'apikey': import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.PUBLIC_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          prenom: data.get('prenom'),
+          nom: data.get('nom'),
+          email: data.get('email'),
+          objet: data.get('objet'),
+          message: data.get('message'),
+          rgpd: true,
+        }),
+      });
+
+      if (res.ok) {
+        successMsg.style.display = 'block';
+        btn.style.display = 'none';
+        form.reset();
+      } else {
+        throw new Error('Erreur serveur');
+      }
+    } catch {
+      errorMsg.style.display = 'block';
+      btn.textContent = 'Envoyer le message';
+      btn.disabled = false;
+    }
+  });
+</script>

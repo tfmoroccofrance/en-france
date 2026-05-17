@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de confidentialité – Recettes françaises En France</title>
+  <meta name="description" content="Politique de confidentialité du site Recettes françaises En France. Découvrez comment nous collectons, utilisons et protégeons vos données personnelles." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bleu: #1a3a5c;
+      --rouge: #c0392b;
+      --or: #c9a84c;
+      --creme: #fdf8f0;
+      --texte: #2c2c2c;
+      --gris-clair: #f0ece4;
+      --bordure: #ddd5c0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background-color: var(--creme);
+      color: var(--texte);
+      line-height: 1.85;
+      font-size: 1rem;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background-color: var(--bleu);
+      color: #fff;
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      border-bottom: 4px solid var(--or);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 28px,
+        rgba(201,168,76,.06) 28px,
+        rgba(201,168,76,.06) 30px
+      );
+      pointer-events: none;
+    }
+    .site-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--or);
+      margin-bottom: .6rem;
+    }
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+    }
+    .header-date {
+      margin-top: 1rem;
+      font-size: .85rem;
+      color: rgba(255,255,255,.65);
+      font-style: italic;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── INTRO CARD ── */
+    .intro-card {
+      background: #fff;
+      border-left: 5px solid var(--rouge);
+      border-radius: 4px;
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      font-size: .97rem;
+      color: #3a3a3a;
+    }
+    .intro-card strong { color: var(--bleu); }
+
+    /* ── SECTIONS ── */
+    section { margin-bottom: 2.8rem; }
+
+    section h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--bleu);
+      border-bottom: 2px solid var(--bordure);
+      padding-bottom: .5rem;
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+    }
+    section h2 .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--bleu);
+      color: #fff;
+      border-radius: 50%;
+      font-size: .75rem;
+      font-family: 'Source Serif 4', serif;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    p { margin-bottom: 1rem; }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: .5rem 0 1rem 0;
+    }
+    ul li {
+      padding: .35rem 0 .35rem 1.4rem;
+      position: relative;
+      font-size: .97rem;
+    }
+    ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--or);
+      font-size: .85rem;
+      top: .45rem;
+    }
+
+    a {
+      color: var(--rouge);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+    a:hover { border-color: var(--rouge); }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: var(--gris-clair);
+      border: 1px solid var(--bordure);
+      border-radius: 4px;
+      padding: 1.2rem 1.5rem;
+      margin: 1rem 0;
+      font-size: .95rem;
+    }
+    .highlight-box strong { color: var(--bleu); }
+
+    /* ── CONTACT CARD ── */
+    .contact-card {
+      background: var(--bleu);
+      color: #fff;
+      border-radius: 6px;
+      padding: 1.8rem 2rem;
+      margin-top: 1rem;
+    }
+    .contact-card p { margin-bottom: .5rem; color: rgba(255,255,255,.88); }
+    .contact-card a { color: var(--or); border-color: transparent; }
+    .contact-card a:hover { border-color: var(--or); }
+    .contact-card .label {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--or);
+      margin-bottom: .3rem;
+      font-weight: 600;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .8rem;
+      color: #888;
+      border-top: 1px solid var(--bordure);
+    }
+    footer span { color: var(--rouge); }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="site-name">Recettes françaises En France</p>
+  <h1>Politique de confidentialité</h1>
+  <p class="header-date">Dernière mise à jour : mai 2025</p>
+</header>
+
+<main class="container">
+
+  <div class="intro-card">
+    Bienvenue sur <strong>Recettes françaises En France</strong> (<a href="https://www.tfmorocco.com">www.tfmorocco.com</a>).
+    La protection de votre vie privée est une priorité pour nous.
+    Cette politique de confidentialité vous explique de manière transparente quelles données nous collectons,
+    comment nous les utilisons et quels sont vos droits. En naviguant sur notre site, vous acceptez les pratiques décrites ci-dessous.
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <h2><span class="num">1</span> Identification du responsable du site</h2>
+    <div class="highlight-box">
+      <p><strong>Nom du site :</strong> Recettes françaises En France</p>
+      <p><strong>Domaine :</strong> <a href="https://www.tfmorocco.com">www.tfmorocco.com</a></p>
+      <p><strong>Contact principal :</strong> <a href="mailto:contact@tfmorocco.com">contact@tfmorocco.com</a></p>
+      <p><strong>Contact secondaire :</strong> <a href="mailto:ftm.contact.1@gmail.com">ftm.contact.1@gmail.com</a></p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2><span class="num">2</span> Données collectées</h2>
+    <p>Dans le cadre de l'exploitation normale de ce site, nous pouvons collecter les catégories de données suivantes :</p>
+    <ul>
+      <li><strong>Données de navigation :</strong> adresse IP, type de navigateur, pages visitées, durée des sessions, source du trafic.</li>
+      <li><strong>Données de formulaire :</strong> nom, adresse e-mail et message lorsque vous utilisez notre formulaire de contact.</li>
+      <li><strong>Cookies et technologies similaires :</strong> cookies de performance, cookies publicitaires (Google AdSense), cookies analytiques (Google Analytics).</li>
+    </ul>
+    <p>Nous ne collectons <strong>aucune donnée sensible</strong> (santé, opinions politiques, données bancaires, etc.).</p>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <h2><span class="num">3</span> Finalités du traitement des données</h2>
+    <p>Les données collectées sont utilisées exclusivement pour les finalités suivantes :</p>
+    <ul>
+      <li>Améliorer l'expérience utilisateur et optimiser le contenu du site.</li>
+      <li>Analyser les statistiques de fréquentation via <strong>Google Analytics</strong>.</li>
+      <li>Afficher des publicités personnalisées ou non via <strong>Google AdSense</strong>.</li>
+      <li>Répondre aux demandes envoyées via le formulaire de contact.</li>
+      <li>Respecter nos obligations légales.</li>
+    </ul>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <h2><span class="num">4</span> Cookies</h2>
+    <p>Notre site utilise des cookies pour assurer son bon fonctionnement et améliorer votre expérience. Voici les principaux types de cookies utilisés :</p>
+    <ul>
+      <li><strong>Cookies techniques :</strong> indispensables au fonctionnement du site, ils ne peuvent pas être désactivés.</li>
+      <li><strong>Cookies analytiques (Google Analytics) :</strong> ils nous permettent de mesurer l'audience et d'améliorer nos contenus. Ces données sont anonymisées.</li>
+      <li><strong>Cookies publicitaires (Google AdSense) :</strong> ils permettent à Google de diffuser des annonces adaptées à vos centres d'intérêt, en tenant compte de vos visites sur ce site et d'autres sites web.</li>
+    </ul>
+    <p>
+      Vous pouvez à tout moment modifier vos préférences en matière de cookies via les paramètres de votre navigateur ou en vous rendant sur la page
+      <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Paramètres des annonces Google</a>.
+      Pour en savoir plus sur la façon dont Google utilise les cookies, consultez la
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener noreferrer">politique de Google relative aux cookies</a>.
+    </p>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2><span class="num">5</span> Google AdSense et publicités</h2>
+    <p>
+      Ce site est monétisé via <strong>Google AdSense</strong>, un service de régie publicitaire proposé par Google LLC.
+      Google AdSense utilise des cookies pour diffuser des annonces pertinentes en se basant sur vos visites antérieures sur notre site et sur d'autres sites internet.
+    </p>
+    <p>
+      Les annonceurs tiers, dont Google, utilisent des cookies pour diffuser des annonces basées sur les visites antérieures d'un internaute sur votre site Web ou sur d'autres sites Web.
+      L'utilisation de cookies de personnalisation par Google permet à Google et à ses partenaires de diffuser des annonces aux utilisateurs en fonction de leur visite sur vos sites et/ou d'autres sites Internet.
+    </p>
+    <p>
+      Les utilisateurs peuvent désactiver la personnalisation des annonces en accédant aux
+      <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">paramètres des annonces</a>.
+      Vous pouvez également consulter la page <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>
+      pour désactiver l'utilisation de cookies par des fournisseurs tiers.
+    </p>
+    <div class="highlight-box">
+      <strong>Conformité AdSense :</strong> notre site respecte les
+      <a href="https://support.google.com/adsense/answer/48182" target="_blank" rel="noopener noreferrer">politiques de programme Google AdSense</a>,
+      notamment en matière de contenu, de placement des annonces et de transparence envers les utilisateurs.
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <h2><span class="num">6</span> Google Analytics</h2>
+    <p>
+      Nous utilisons <strong>Google Analytics</strong> pour analyser le trafic sur notre site.
+      Cet outil collecte des informations anonymisées sur la manière dont les visiteurs utilisent le site
+      (pages consultées, durée des visites, provenance géographique, etc.).
+    </p>
+    <p>
+      Vous pouvez empêcher la collecte de vos données par Google Analytics en installant le
+      <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">module complémentaire de désactivation</a>
+      proposé par Google.
+    </p>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <h2><span class="num">7</span> Partage des données avec des tiers</h2>
+    <p>Nous ne vendons, ne louons et ne partageons pas vos données personnelles avec des tiers à des fins commerciales. Vos données peuvent cependant être transmises à :</p>
+    <ul>
+      <li><strong>Google LLC</strong> (Google Analytics, Google AdSense) – dans le cadre des services décrits ci-dessus.</li>
+      <li>Les autorités compétentes, uniquement si la loi nous y oblige.</li>
+    </ul>
+    <p>
+      Google traite vos données conformément à sa propre
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">politique de confidentialité</a>.
+    </p>
+  </section>
+
+  <!-- 8 -->
+  <section>
+    <h2><span class="num">8</span> Durée de conservation des données</h2>
+    <p>Nous conservons vos données personnelles uniquement le temps nécessaire aux finalités pour lesquelles elles ont été collectées :</p>
+    <ul>
+      <li>Données de contact (formulaire) : <strong>12 mois</strong> maximum à compter de la dernière interaction.</li>
+      <li>Données analytiques (Google Analytics) : selon la durée de conservation définie dans votre compte Google Analytics (par défaut 26 mois).</li>
+      <li>Cookies : durée variable selon le type (session ou persistant), généralement jusqu'à <strong>13 mois</strong> pour les cookies tiers.</li>
+    </ul>
+  </section>
+
+  <!-- 9 -->
+  <section>
+    <h2><span class="num">9</span> Sécurité des données</h2>
+    <p>
+      Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre
+      tout accès non autorisé, perte, destruction ou divulgation.
+      Notre site utilise le protocole <strong>HTTPS</strong> pour sécuriser toutes les communications entre votre navigateur et nos serveurs.
+    </p>
+    <p>
+      Toutefois, aucun système de transmission sur Internet n'est totalement sécurisé.
+      Nous ne pouvons garantir une sécurité absolue des données transmises en ligne.
+    </p>
+  </section>
+
+  <!-- 10 -->
+  <section>
+    <h2><span class="num">10</span> Vos droits (RGPD)</h2>
+    <p>
+      Conformément au Règlement Général sur la Protection des Données (RGPD – UE 2016/679),
+      et aux législations applicables en matière de protection des données, vous disposez des droits suivants :
+    </p>
+    <ul>
+      <li><strong>Droit d'accès :</strong> obtenir une copie des données personnelles que nous détenons sur vous.</li>
+      <li><strong>Droit de rectification :</strong> faire corriger des données inexactes ou incomplètes.</li>
+      <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données dans les cas prévus par la loi.</li>
+      <li><strong>Droit à la limitation :</strong> demander la suspension temporaire du traitement de vos données.</li>
+      <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données à des fins de prospection ou publicitaires.</li>
+      <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format structuré et lisible par machine.</li>
+    </ul>
+    <p>Pour exercer l'un de ces droits, contactez-nous à l'adresse indiquée dans la section « Contact ».</p>
+  </section>
+
+  <!-- 11 -->
+  <section>
+    <h2><span class="num">11</span> Liens vers des sites tiers</h2>
+    <p>
+      Notre site peut contenir des liens vers des sites web tiers (recettes, partenaires, réseaux sociaux, etc.).
+      Nous n'avons aucun contrôle sur le contenu ou les pratiques de confidentialité de ces sites
+      et déclinons toute responsabilité à leur égard.
+      Nous vous encourageons à consulter la politique de confidentialité de chaque site que vous visitez.
+    </p>
+  </section>
+
+  <!-- 12 -->
+  <section>
+    <h2><span class="num">12</span> Modifications de la politique de confidentialité</h2>
+    <p>
+      Nous nous réservons le droit de mettre à jour cette politique de confidentialité à tout moment,
+      notamment pour nous conformer à de nouvelles réglementations ou pour refléter des changements dans nos pratiques.
+      La date de la dernière mise à jour est indiquée en haut de cette page.
+    </p>
+    <p>
+      Nous vous encourageons à consulter régulièrement cette page.
+      Votre utilisation continue du site après toute modification vaut acceptation de la politique mise à jour.
+    </p>
+  </section>
+
+  <!-- 13 -->
+  <section>
+    <h2><span class="num">13</span> Contact</h2>
+    <p>Pour toute question relative à cette politique de confidentialité ou pour exercer vos droits, vous pouvez nous contacter :</p>
+    <div class="contact-card">
+      <p class="label">Site web</p>
+      <p><a href="https://www.tfmorocco.com">www.tfmorocco.com</a></p>
+
+      <p class="label" style="margin-top:1rem;">Adresse e-mail principale</p>
+      <p><a href="mailto:contact@tfmorocco.com">contact@tfmorocco.com</a></p>
+
+      <p class="label" style="margin-top:1rem;">Adresse e-mail secondaire</p>
+      <p><a href="mailto:ftm.contact.1@gmail.com">ftm.contact.1@gmail.com</a></p>
+
+      <p style="margin-top:1.2rem; font-size:.88rem; color:rgba(255,255,255,.6);">
+        Nous nous engageons à répondre à votre demande dans un délai maximum de <strong style="color:#fff;">30 jours</strong> ouvrables.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 <span>Recettes françaises En France</span> – <a href="https://www.tfmorocco.com">www.tfmorocco.com</a>. Tous droits réservés.
+</footer>
+
+</body>
+</html>

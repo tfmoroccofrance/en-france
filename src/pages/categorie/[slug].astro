@@ -1,0 +1,68 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Main from "@/layouts/Main.astro";
+import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
+import { fetchPostsByCategory } from "@/lib/posts";
+import { fetchSeoCategories, getCategoryBySlug } from "@/lib/categories";
+
+export async function getStaticPaths() {
+  const { data: categories } = await fetchSeoCategories();
+
+  return categories.map(category => ({
+    params: { slug: category.slug },
+  }));
+}
+
+const slug = Astro.params.slug ?? "";
+const category = getCategoryBySlug(slug);
+
+if (!category) {
+  return Astro.redirect("/404");
+}
+
+const { data: posts } = await fetchPostsByCategory(category.slug);
+const canonicalURL = new URL(category.url, Astro.url).href;
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Accueil",
+      item: new URL("/", Astro.url).href,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: category.name,
+      item: canonicalURL,
+    },
+  ],
+};
+---
+
+<Layout
+  title={category.metaTitle}
+  description={category.metaDescription}
+  canonicalURL={canonicalURL}
+  structuredData={breadcrumbSchema}
+>
+  <Header />
+  <Main pageTitle={category.name} pageDesc={category.metaDescription}>
+    {
+      posts.length > 0 ? (
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map(post => <DatabaseRecipeCard post={post} />)}
+        </div>
+      ) : (
+        <div class="rounded-lg border border-border bg-muted/30 p-5">
+          Les recettes de cette categorie arrivent bientot.
+        </div>
+      )
+    }
+  </Main>
+  <Footer />
+</Layout>

@@ -1,0 +1,19 @@
+---
+type Props = {
+  label?: string;
+  class?: string;
+};
+
+const { label = "Publicite", class: className } = Astro.props;
+---
+
+<aside
+  data-ezoic-ad
+  aria-label={label}
+  class:list={[
+    "my-8 grid min-h-28 place-items-center rounded border border-dashed border-border bg-muted/35 px-4 text-xs uppercase tracking-wide text-foreground/60",
+    className,
+  ]}
+>
+  <span>{label}</span>
+</aside>

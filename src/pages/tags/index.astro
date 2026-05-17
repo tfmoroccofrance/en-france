@@ -1,0 +1,17 @@
+---
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE } from "@/config";
+---
+
+<Layout title={`Etiquettes | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Etiquettes" pageDesc="Filtrez les recettes par sujet, ingredient ou type de cuisine.">
+    <div class="rounded-lg border border-border bg-muted/30 p-5">
+      Les filtres par etiquette seront reconnectes aux donnees Supabase prochainement.
+    </div>
+  </Main>
+  <Footer />
+</Layout>

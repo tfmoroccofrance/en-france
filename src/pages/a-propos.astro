@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>À propos – Recettes françaises En France</title>
+  <meta name="description" content="Découvrez l'histoire de Recettes françaises En France, un espace dédié aux recettes françaises authentiques, rapides et économiques, créé par Céline Anderson."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --cream:   #faf7f2;
+      --warm:    #f2ebe0;
+      --brown:   #6b4c35;
+      --gold:    #c9a96e;
+      --dark:    #1e1612;
+      --muted:   #8a7060;
+      --red:     #b03a2e;
+      --line:    rgba(107,76,53,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.55) saturate(0.9);
+      transform: scale(1.04);
+      animation: zoomIn 10s ease forwards;
+    }
+
+    @keyframes zoomIn {
+      to { transform: scale(1); }
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(30,22,18,0.92) 0%,
+        rgba(30,22,18,0.35) 55%,
+        transparent 100%);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+      animation: fadeUp 1.2s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__eyebrow {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .hero__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 300;
+      line-height: 1.02;
+      color: #fff;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero__subtitle {
+      margin-top: 20px;
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.72);
+      max-width: 480px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero__scroll {
+      position: absolute;
+      right: 50px;
+      bottom: 40px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.45);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .hero__scroll span { writing-mode: vertical-rl; }
+
+    .hero__scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: var(--gold);
+      animation: lineDown 1.5s ease infinite;
+    }
+
+    @keyframes lineDown {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── WRAPPER ── */
+    .wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 90px 0; }
+
+    .section__label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 5vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--brown);
+      margin-bottom: 28px;
+    }
+
+    h2 em { font-style: italic; color: var(--red); }
+
+    p { font-size: 16px; color: #4a3728; margin-bottom: 18px; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      position: relative;
+    }
+
+    .divider::before {
+      content: '✦';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      background: var(--cream);
+      padding: 0 14px;
+      color: var(--gold);
+      font-size: 12px;
+    }
+
+    /* ── INTRO CARD ── */
+    .intro-card {
+      background: var(--warm);
+      border-left: 3px solid var(--gold);
+      padding: 48px 56px;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-card::before {
+      content: '«';
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 160px;
+      color: var(--gold);
+      opacity: 0.12;
+      line-height: 1;
+    }
+
+    .intro-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--brown);
+      margin: 0;
+    }
+
+    /* ── IDENTITY GRID ── */
+    .identity {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .identity__text {}
+
+    .identity__visual {
+      position: relative;
+    }
+
+    .identity__frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--warm);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 24px 24px 0 var(--warm), 25px 25px 0 var(--line);
+    }
+
+    .identity__frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(12%) saturate(0.9);
+      transition: filter 0.6s ease, transform 0.8s ease;
+    }
+
+    .identity__frame:hover img {
+      filter: sepia(0%) saturate(1);
+      transform: scale(1.03);
+    }
+
+    .identity__tag {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      font-weight: 500;
+    }
+
+    /* ── MISSION LIST ── */
+    .mission-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .mission-list li {
+      background: var(--warm);
+      padding: 24px 28px;
+      border-radius: 2px;
+      border-top: 2px solid var(--gold);
+      font-size: 14px;
+      color: var(--brown);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .mission-list li::before {
+      content: attr(data-icon);
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: -2px;
+    }
+
+    .mission-list strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 4px;
+    }
+
+    /* ── ENGAGEMENT ── */
+    .engagement-wrap {
+      background: var(--dark);
+      color: var(--cream);
+      padding: 80px 0;
+    }
+
+    .engagement-wrap h2 { color: var(--gold); }
+    .engagement-wrap p  { color: rgba(250,247,242,0.75); }
+
+    .engagement-wrap .section__label { color: var(--gold); opacity: 0.7; }
+
+    .badges {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .badge {
+      border: 1px solid rgba(201,169,110,0.35);
+      padding: 10px 20px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-radius: 1px;
+      font-weight: 500;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .contact-item {
+      background: var(--warm);
+      padding: 32px 36px;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(107,76,53,0.12);
+    }
+
+    .contact-item__icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .contact-item__label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .contact-item a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      color: var(--brown);
+      text-decoration: none;
+      font-style: italic;
+      border-bottom: 1px solid var(--gold);
+      transition: color 0.3s;
+    }
+
+    .contact-item a:hover { color: var(--red); }
+
+    /* ── CLOSING ── */
+    .closing {
+      text-align: center;
+      padding: 100px 0 80px;
+    }
+
+    .closing__ornament {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .closing h2 {
+      font-size: clamp(38px, 6vw, 64px);
+      text-align: center;
+    }
+
+    .closing p {
+      max-width: 520px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--brown);
+      color: var(--cream);
+      padding: 16px 42px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.3s;
+      border-radius: 1px;
+    }
+
+    .btn:hover {
+      background: var(--red);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER LINE ── */
+    .footer-line {
+      border-top: 1px solid var(--line);
+      padding: 28px 40px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .wrapper { padding: 0 24px; }
+      .identity { grid-template-columns: 1fr; }
+      .identity__visual { order: -1; }
+      .mission-list { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .intro-card { padding: 32px 28px; }
+      .hero__content { padding: 0 24px 60px; }
+      .hero__scroll { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HERO ══ -->
+  <header class="hero">
+    <img
+      class="hero__img"
+      src="https://xkrbovjgikucfsjmtkua.supabase.co/storage/v1/object/public/En%20France/en%20france.jfif"
+      alt="Recettes françaises En France – cuisine française authentique"
+    />
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__eyebrow">À propos de nous</span>
+      <h1 class="hero__title">
+        La cuisine française,<br>
+        <em>avec amour</em>
+      </h1>
+      <p class="hero__subtitle">
+        Des recettes authentiques, simples et économiques — partagées avec passion depuis la France.
+      </p>
+    </div>
+    <div class="hero__scroll"><span>Découvrir</span></div>
+  </header>
+
+  <!-- ══ INTRO ══ -->
+  <section>
+    <div class="wrapper">
+      <div class="reveal">
+        <p class="section__label">Notre histoire</p>
+        <div class="intro-card">
+          <p>
+            Bienvenue sur <strong>Recettes françaises En France</strong> — un espace né d'une passion
+            sincère pour la gastronomie française et du désir profond de la rendre accessible à tous,
+            sans compromis sur l'authenticité ni sur le goût.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrapper"><div class="divider"></div></div>
+
+  <!-- ══ IDENTITÉ ══ -->
+  <section>
+    <div class="wrapper">
+      <div class="identity reveal">
+        <div class="identity__text">
+          <p class="section__label">La fondatrice</p>
+          <h2>Céline<br><em>Anderson</em></h2>
+          <p>
+            Passionnée de cuisine française depuis toujours, j'ai créé cet espace pour partager
+            avec vous ce que j'aime le plus : des recettes vraies, testées, et accessibles à
+            tous les budgets et tous les niveaux.
+          </p>
+          <p>
+            À travers <strong>Paassion Françaises</strong>, je publie régulièrement tout ce qu'il
+            y a de nouveau et de fiable dans l'univers de la cuisine française — des plats du
+            terroir aux classiques revisités, toujours avec le plaisir sincère de partager.
+          </p>
+        </div>
+        <div class="identity__visual">
+          <div class="identity__frame">
+            <img
+              src="https://xkrbovjgikucfsjmtkua.supabase.co/storage/v1/object/public/En%20France/en%20france.jfif"
+              alt="Céline Anderson – Recettes françaises En France"
+            />
+          </div>
+          <div class="identity__tag">Fondatrice & Rédactrice</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrapper"><div class="divider"></div></div>
+
+  <!-- ══ MISSION ══ -->
+  <section>
+    <div class="wrapper reveal">
+      <p class="section__label">Ce que nous offrons</p>
+      <h2>Notre <em>mission</em></h2>
+      <p>
+        Notre objectif est simple : vous proposer des recettes françaises rapides,
+        économiques et savoureuses — sans jamais sacrifier l'authenticité.
+      </p>
+      <ul class="mission-list">
+        <li data-icon="🥘"><div><strong>Recettes testées</strong>Chaque recette est vérifiée avant publication pour vous garantir un résultat réussi.</div></li>
+        <li data-icon="💶"><div><strong>Petit budget</strong>Des ingrédients simples, disponibles partout, pour cuisiner sans se ruiner.</div></li>
+        <li data-icon="📋"><div><strong>Étape par étape</strong>Des instructions claires et détaillées, accessibles à tous les niveaux.</div></li>
+        <li data-icon="🔄"><div><strong>Contenu actualisé</strong>Nous publions régulièrement de nouvelles recettes fiables et de saison.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ ENGAGEMENT (fond sombre) ══ -->
+  <div class="engagement-wrap">
+    <div class="wrapper reveal">
+      <p class="section__label">Notre promesse</p>
+      <h2>Un contenu honnête,<br><em>toujours</em></h2>
+      <p>
+        Toutes les informations publiées sur ce site sont rédigées avec sérieux et vérifiées
+        avec soin. Nous ne publions jamais de contenu trompeur, de recettes non testées, ni
+        de conseils alimentaires non fiables.
+      </p>
+      <p>
+        Ce site respecte pleinement les politiques de <strong>Google AdSense</strong> —
+        toute publicité est clairement identifiée afin de garantir une expérience de
+        navigation transparente et agréable.
+      </p>
+      <div class="badges">
+        <span class="badge">Contenu vérifié</span>
+        <span class="badge">Google AdSense conforme</span>
+        <span class="badge">SEO optimisé</span>
+        <span class="badge">E-E-A-T Google</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONTACT ══ -->
+  <section>
+    <div class="wrapper reveal">
+      <p class="section__label">Restons en contact</p>
+      <h2>Nous <em>écrire</em></h2>
+      <p>
+        Une question, une idée de recette, une collaboration ? Nous lisons chaque message
+        et répondons sous <strong>48 à 72 heures ouvrables</strong>.
+      </p>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="contact-item__icon">📬</span>
+          <div class="contact-item__label">Email général</div>
+          <a href="mailto:ftm.contact.1@gmail.com">ftm.contact.1@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item__icon">✉️</span>
+          <div class="contact-item__label">Email professionnel</div>
+          <a href="mailto:contact@tfmorocco.com">contact@tfmorocco.com</a>
+        </div>
+        <div class="contact-item" style="grid-column: 1 / -1;">
+          <span class="contact-item__icon">🌐</span>
+          <div class="contact-item__label">Site web</div>
+          <a href="https://www.tfmorocco.com" target="_blank" rel="noopener noreferrer">www.tfmorocco.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ══ -->
+  <section class="closing">
+    <div class="wrapper reveal">
+      <div class="closing__ornament">♡</div>
+      <h2>Merci de votre <em>confiance</em></h2>
+      <p>
+        Votre présence et votre fidélité sont notre plus belle récompense.
+        Bonne cuisine, bon appétit — et à très vite sur le site !
+      </p>
+      <a href="https://www.tfmorocco.com" class="btn" target="_blank" rel="noopener">
+        Découvrir nos recettes
+      </a>
+    </div>
+  </section>
+
+  <div class="footer-line">
+    © 2024 Recettes françaises En France · <a href="https://www.tfmorocco.com" style="color:var(--gold);text-decoration:none;">www.tfmorocco.com</a>
+  </div>
+
+  <!-- ══ SCROLL REVEAL JS ══ -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

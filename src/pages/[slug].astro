@@ -1,0 +1,25 @@
+---
+import DatabasePostDetails from "@/layouts/DatabasePostDetails.astro";
+import { fetchPostBySlug, fetchRelatedPostsByCategory } from "@/lib/posts";
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect("/404");
+}
+
+const postResult = await fetchPostBySlug(slug);
+const post = postResult.data;
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const relatedPostsResult = await fetchRelatedPostsByCategory(
+  post.category,
+  slug
+);
+const relatedPosts = relatedPostsResult.data;
+---
+
+<DatabasePostDetails post={post} relatedPosts={relatedPosts} />
