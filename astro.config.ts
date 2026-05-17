@@ -1,7 +1,7 @@
 import { defineConfig, envField, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
-import netlify from "@astrojs/netlify";
+import vercel from "@astrojs/vercel";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import {
@@ -15,7 +15,7 @@ import { SITE } from "./src/config";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  adapter: netlify(),
+  adapter: vercel(),
   site: SITE.website,
   integrations: [
     sitemap({
