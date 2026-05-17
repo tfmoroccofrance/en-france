@@ -1,157 +1,193 @@
 ---
-import IconX from "@/assets/icons/IconX.svg";
-import IconMoon from "@/assets/icons/IconMoon.svg";
-import IconSearch from "@/assets/icons/IconSearch.svg";
-import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
-import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
-import LinkButton from "./LinkButton.astro";
-import { SITE } from "@/config";
-
-const { pathname } = Astro.url;
-
-// Remove trailing slash from current pathname if exists
-const currentPath =
-  pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
-
-const isActive = (path: string) => {
-  const currentPathArray = currentPath.split("/").filter(p => p.trim());
-  const pathArray = path.split("/").filter(p => p.trim());
-
-  return currentPath === path || currentPathArray[0] === pathArray[0];
-};
-
 ---
 
-<a
-  id="skip-to-content"
-  href="#main-content"
-  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4"
->
-  Aller au contenu
-</a>
+<header id="main-header" class="site-header">
+  <div class="header-inner">
 
-<header
-  class="app-layout flex flex-col items-center justify-between sm:flex-row"
->
-  <div
-    id="top-nav-wrap"
-    class:list={[
-      "py-4 sm:py-6",
-      "border-b border-border",
-      "relative w-full bg-background",
-      "flex items-baseline justify-between sm:items-center",
-    ]}
-  >
-    <a
-      href="/"
-      class="absolute py-1 sm:static sm:my-auto"
-      aria-label={SITE.title}
-    >
+    <!-- Logo -->
+    <a href="/" class="logo-link" aria-label="Accueil – Recettes françaises En France">
       <img
-        src="/recette%20facile%20en%20france%20logo.svg"
-        alt={SITE.title}
-        width="172"
-        height="44"
-        decoding="async"
-        class="h-9 w-auto sm:h-11"
+        src="/recette facile en france logo.svg"
+        alt="Recette Facile En France"
+        class="logo-img"
       />
     </a>
-    <nav
-      id="nav-menu"
-      class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"
-    >
-      <button
-        id="menu-btn"
-        class="focus-outline self-end p-2 sm:hidden"
-        aria-label="Open Menu"
-        aria-expanded="false"
-        aria-controls="menu-items"
-      >
-        <IconX id="close-icon" class="hidden" />
-        <IconMenuDeep id="menu-icon" />
-      </button>
-      <ul
-        id="menu-items"
-        class:list={[
-          "mt-4 grid w-64 grid-cols-2 place-content-center gap-2",
-          "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium [&>li>a]:hover:text-accent sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
-          "hidden",
-          "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0",
-        ]}
-      >
-        <li class="col-span-2">
-          <a href="/" class:list={{ "active-nav": currentPath === "/" }}>
-            Accueil
-          </a>
-        </li>
-        <li class="col-span-2">
-          <a href="/categorie" class:list={{ "active-nav": isActive("/categorie") }}>
-            Categories
-          </a>
-        </li>
-        <li class="col-span-2">
-          <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
-            Recettes
-          </a>
-        </li>
-        <li class="col-span-1 flex items-center justify-center">
-          <LinkButton
-            href="/search"
-            class:list={[
-              "focus-outline flex p-3 sm:p-1",
-              { "[&>svg]:stroke-accent": isActive("/search") },
-            ]}
-            title="Rechercher"
-            aria-label="rechercher"
-          >
-            <IconSearch />
-            <span class="sr-only">Search</span>
-          </LinkButton>
-        </li>
-        {
-          SITE.lightAndDarkMode && (
-            <li class="col-span-1 flex items-center justify-center">
-              <button
-                id="theme-btn"
-                class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent"
-                title="Changer le theme"
-                aria-label="auto"
-                aria-live="polite"
-              >
-                <IconMoon class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <IconSunHigh class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-              </button>
-            </li>
-          )
-        }
+
+    <!-- Spacer -->
+    <div class="spacer"></div>
+
+    <!-- Nav Links -->
+    <nav id="menu-items" aria-label="Navigation principale">
+      <ul>
+        <li><a href="/" class="nav-link">Accueil</a></li>
+        <li><a href="/categorie" class="nav-link">Categories</a></li>
+        <li><a href="/posts" class="nav-link">Recettes</a></li>
+        <li><a href="/a-propos" class="nav-link">À propos</a></li>
       </ul>
     </nav>
+
+    <!-- Icons -->
+    <div class="nav-icons">
+      <a href="/search" aria-label="Rechercher" class="icon-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+        </svg>
+      </a>
+
+      <button id="theme-btn" aria-label="Changer le thème" class="icon-btn">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+    </div>
+
   </div>
 </header>
 
+<style>
+  .site-header {
+    background-color: #f5f0e8;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    height: 100px;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .logo-img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .spacer { flex: 1; }
+
+  nav ul {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: #1a1a2e;
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    position: relative;
+    padding-bottom: 6px;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .nav-link:hover { opacity: 0.5; }
+
+  .nav-link.active { font-weight: 700; }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='6' viewBox='0 0 60 6'%3E%3Cpath d='M0 3 Q7.5 0 15 3 Q22.5 6 30 3 Q37.5 0 45 3 Q52.5 6 60 3' fill='none' stroke='%231a1a2e' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 60px 6px;
+  }
+
+  .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-shrink: 0;
+    margin-left: 3rem;
+  }
+
+  .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a2e;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .icon-btn:hover { opacity: 0.5; }
+  .icon-btn svg { width: 24px; height: 24px; }
+
+  .icon-moon { display: block; }
+  .icon-sun  { display: none; }
+
+  :global(.dark) .icon-moon { display: none; }
+  :global(.dark) .icon-sun  { display: block; }
+  :global(.dark) .site-header { background-color: #1a1a2e; }
+  :global(.dark) .nav-link    { color: #f5f0e8; }
+  :global(.dark) .icon-btn    { color: #f5f0e8; }
+
+  @media (max-width: 900px) {
+    .header-inner { padding: 0 1.5rem; height: 80px; }
+    nav ul { gap: 1.5rem; }
+    .nav-icons { margin-left: 1.5rem; }
+    .logo-img { height: 65px; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-link { font-size: 0.85rem; }
+    nav ul { gap: 1rem; }
+    .logo-img { height: 52px; }
+  }
+</style>
+
 <script>
-  function toggleNav() {
-    const menuBtn = document.querySelector("#menu-btn");
-    const menuItems = document.querySelector("#menu-items");
-    const menuIcon = document.querySelector("#menu-icon");
-    const closeIcon = document.querySelector("#close-icon");
-
-    if (!menuBtn || !menuItems || !menuIcon || !closeIcon) return;
-
-    menuBtn.addEventListener("click", () => {
-      const openMenu = menuBtn.getAttribute("aria-expanded") === "true";
-
-      menuBtn.setAttribute("aria-expanded", openMenu ? "false" : "true");
-      menuBtn.setAttribute("aria-label", openMenu ? "Open Menu" : "Close Menu");
-
-      menuItems.classList.toggle("hidden");
-      menuIcon.classList.toggle("hidden");
-      closeIcon.classList.toggle("hidden");
+  function setActiveLink() {
+    const links = document.querySelectorAll(".nav-link");
+    const path = window.location.pathname;
+    links.forEach(link => {
+      link.classList.remove("active");
+      link.removeAttribute("aria-current");
+      const href = link.getAttribute("href") ?? "";
+      if (href === "/" ? path === "/" : path.startsWith(href)) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+      }
     });
   }
 
-  toggleNav();
-
-  // Runs on view transitions navigation
-  document.addEventListener("astro:after-swap", toggleNav);
+  setActiveLink();
+  document.addEventListener("astro:after-swap", setActiveLink);
 </script>
