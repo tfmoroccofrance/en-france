@@ -17,7 +17,8 @@ if (!post) {
 
 const relatedPostsResult = await fetchRelatedPostsByCategory(
   post.category,
-  slug
+  slug,
+  6
 );
 const relatedPosts = relatedPostsResult.data;
 ---

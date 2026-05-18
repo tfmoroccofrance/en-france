@@ -1,65 +1,144 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Conditions Générales d'Utilisation - En France</title>
-    <style>
-        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #ffffff; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #e67e22; padding-bottom: 10px; font-size: 24px; }
-        h2 { color: #e67e22; margin-top: 25px; font-size: 20px; }
-        p { margin-bottom: 15px; }
-        ul { margin-bottom: 15px; }
-        li { margin-bottom: 8px; }
-        .contact-info { background: #fef5ec; padding: 15px; border-left: 5px solid #e67e22; margin: 20px 0; border-radius: 4px; }
-        footer { margin-top: 50px; font-size: 0.9em; color: #7f8c8d; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
-        a { color: #e67e22; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
 
-    <h1>Conditions Générales d'Utilisation (CGU)</h1>
-    <p><em>Dernière mise à jour : 15 mai 2026</em></p>
+const canonicalURL = new URL("/conditions-generales/", Astro.site).href;
 
-    <p>Bienvenue sur <strong>Recettes françaises En France</strong> (accessible via <a href="https://www.tfmorocco.com">www.tfmorocco.com</a>). En accédant à ce site, vous acceptez de vous conformer aux présentes conditions générales d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre site.</p>
+const sections = [
+  {
+    num: 1,
+    title: "Présentation du site",
+    content: `Le site <strong>En France</strong> est une plateforme numérique dédiée au partage de recettes de cuisine française et d'articles culinaires, accessible via <a href="https://www.tfmorocco.com" class="text-accent hover:underline">www.tfmorocco.com</a>. Le site est édité pour un public francophone, ciblant principalement les utilisateurs en France.`
+  },
+  {
+    num: 2,
+    title: "Propriété intellectuelle",
+    content: `Tout le contenu présent sur ce site — textes, recettes, photographies, logos et graphismes — est la propriété exclusive de <strong>En France</strong>, sauf mention contraire. Toute reproduction, distribution ou modification sans autorisation préalable écrite est strictement interdite.`
+  },
+  {
+    num: 3,
+    title: "Responsabilité culinaire",
+    content: "Les informations et recettes fournies sont à titre purement indicatif. En France ne peut être tenu responsable :",
+    items: [
+      "Du résultat final des recettes réalisé par l'utilisateur.",
+      "Des éventuelles allergies alimentaires ou problèmes de santé découlant de l'utilisation des ingrédients mentionnés.",
+      "Des erreurs de dosage, de température ou d'interprétation des conseils fournis."
+    ]
+  },
+  {
+    num: 4,
+    title: "Publicité et cookies (AdSense & Ezoic)",
+    content: `Ce site utilise des services publicitaires tiers tels que <strong>Google AdSense</strong> et <strong>Ezoic</strong> pour diffuser des annonces publicitaires. Ces régies utilisent des cookies pour personnaliser les annonces en fonction de votre navigation. En naviguant sur ce site, vous consentez à la collecte de données via ces cookies conformément au RGPD et à notre <a href="/politique-de-confidentialite/" class="text-accent hover:underline">Politique de Confidentialité</a>.`
+  },
+  {
+    num: 5,
+    title: "Liens externes",
+    content: `Le site peut contenir des liens vers des sites tiers. <strong>En France</strong> n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu ou leurs pratiques en matière de vie privée.`
+  },
+  {
+    num: 6,
+    title: "Protection des données (RGPD)",
+    content: `Nous nous engageons à respecter la confidentialité de vos données personnelles. Les informations collectées via nos formulaires sont strictement utilisées pour répondre à vos demandes et ne sont jamais revendues à des tiers. Consultez notre <a href="/politique-de-confidentialite/" class="text-accent hover:underline">Politique de Confidentialité</a> pour plus de détails.`
+  },
+  {
+    num: 7,
+    title: "Modifications des conditions",
+    content: "Nous nous réservons le droit de modifier les présentes conditions à tout moment pour les adapter aux évolutions législatives ou techniques. Les utilisateurs sont invités à consulter régulièrement cette page."
+  }
+];
+---
 
-    <h2>1. Présentation du Site</h2>
-    <p>Le site <strong>En France</strong> est une plateforme numérique dédiée au partage de recettes de cuisine française et d'articles culinaires. Le site est édité pour un public francophone, ciblant principalement les utilisateurs en France.</p>
+<Layout
+  title="Conditions Générales d'Utilisation | En France"
+  description="Conditions générales d'utilisation du site Recettes françaises En France. Consultez nos règles d'utilisation, propriété intellectuelle et responsabilités."
+  canonicalURL={canonicalURL}
+>
+  <Header />
 
-    <h2>2. Propriété Intellectuelle</h2>
-    <p>Tout le contenu présent sur ce site, incluant de manière non limitative les textes, les recettes originales, les photographies, les logos et les graphismes, est la propriété exclusive de <strong>En France</strong>, sauf mention contraire explicite. Toute reproduction, distribution, modification ou utilisation de ce contenu sans autorisation préalable écrite est strictement interdite et peut donner lieu à des poursuites judiciaires.</p>
+  <main id="main-content">
 
-    <h2>3. Responsabilité relative au Contenu Culinaire</h2>
-    <p>Les informations et recettes fournies sur ce site le sont à titre purement indicatif. Bien que nous fassions de notre mieux pour garantir l'exactitude des instructions culinaires, <strong>En France</strong> ne peut être tenu responsable :</p>
-    <ul>
-        <li>Du résultat final des recettes réalisé par l'utilisateur.</li>
-        <li>Des éventuelles allergies alimentaires ou problèmes de santé découlant de l'utilisation ou de l'ingestion des ingrédients mentionnés.</li>
-        <li>Des erreurs de dosage, de température ou d'interprétation des conseils fournis.</li>
-    </ul>
+    <!-- Hero -->
+    <section class="bg-[linear-gradient(135deg,#fff7ef,#f7d9c4_55%,#f1b58f)] py-12 sm:py-16">
+      <div class="app-layout text-center">
+        <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent">
+          📋 Conditions d'utilisation
+        </span>
+        <h1 class="mt-4 text-2xl font-bold text-[#432818] sm:text-3xl lg:text-4xl">
+          Conditions Générales <span class="text-accent italic">d'Utilisation</span>
+        </h1>
+        <p class="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[#6b4c3b]">
+          Dernière mise à jour : 15 mai 2026
+        </p>
+      </div>
+    </section>
 
-    <h2>4. Publicité et Cookies (AdSense & Ezoic)</h2>
-    <p>Ce site utilise des services publicitaires tiers tels que <strong>Google AdSense</strong> et <strong>Ezoic</strong> pour diffuser des annonces publicitaires. Ces régies utilisent des cookies pour personnaliser les annonces en fonction de votre navigation sur ce site et d'autres plateformes web.</p>
-    <p>En naviguant sur ce site, vous consentez à la collecte de données via ces cookies conformément aux réglementations en vigueur (RGPD) et à notre <em>Politique de Confidentialité</em>.</p>
+    <!-- Intro -->
+    <section class="app-layout py-10">
+      <div class="mx-auto max-w-2xl">
+        <div class="rounded-2xl border border-border bg-muted/30 px-8 py-8 shadow-sm">
+          <p class="text-sm leading-relaxed text-foreground/80">
+            Bienvenue sur <strong class="text-foreground">Recettes françaises En France</strong>. En accédant à ce site, vous acceptez de vous conformer aux présentes conditions générales d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre site.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <h2>5. Liens Externes</h2>
-    <p>Le site peut contenir des liens hypertextes vers des sites tiers. <strong>En France</strong> n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu, leurs publicités ou leurs pratiques en matière de respect de la vie privée.</p>
+    <!-- Sections -->
+    <div class="app-layout pb-16">
+      <div class="mx-auto max-w-2xl space-y-6">
+        {sections.map(section => (
+          <div class="rounded-xl border border-border bg-background p-6 shadow-sm">
+            <div class="mb-4 flex items-center gap-3">
+              <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-accent text-xs font-bold text-white">
+                {section.num}
+              </span>
+              <h2 class="text-base font-bold text-foreground sm:text-lg">{section.title}</h2>
+            </div>
+            {section.content && (
+              <p class="text-sm leading-relaxed text-foreground/75" set:html={section.content} />
+            )}
+            {section.items && (
+              <ul class="mt-3 space-y-2">
+                {section.items.map(item => (
+                  <li class="flex items-start gap-2 text-sm text-foreground/75">
+                    <span class="mt-1 flex-none text-accent">›</span>
+                    <span set:html={item} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
 
-    <h2>6. Protection des Données Personnelles (RGPD)</h2>
-    <p>Nous nous engageons à respecter la confidentialité de vos données personnelles. Les informations collectées via nos formulaires de contact sont strictement utilisées pour répondre à vos demandes techniques ou éditoriales et ne sont jamais revendues à des tiers.</p>
+        <!-- Contact -->
+        <div class="rounded-xl border border-accent/20 bg-accent/5 p-6 shadow-sm">
+          <div class="mb-4 flex items-center gap-3">
+            <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-accent text-xs font-bold text-white">8</span>
+            <h2 class="text-base font-bold text-foreground sm:text-lg">Contact</h2>
+          </div>
+          <p class="mb-4 text-sm leading-relaxed text-foreground/75">
+            Pour toute question relative aux présentes conditions ou pour toute demande de partenariat :
+          </p>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {[
+              { label: "Email officiel", value: "contact@tfmorocco.com", href: "mailto:contact@tfmorocco.com" },
+              { label: "Support technique", value: "ftm.contact.1@gmail.com", href: "mailto:ftm.contact.1@gmail.com" },
+            ].map(item => (
+              <div class="rounded-lg border border-border bg-background p-4 text-center">
+                <p class="text-xs font-semibold uppercase tracking-wide text-foreground/50">{item.label}</p>
+                <a href={item.href} class="mt-1 block text-xs font-semibold text-accent hover:underline">
+                  {item.value}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
 
-    <h2>7. Modifications des Conditions</h2>
-    <p>Nous nous réservons le droit de modifier les présentes conditions à tout moment afin de les adapter aux évolutions législatives ou techniques. Les utilisateurs sont invités à consulter régulièrement cette page.</p>
-
-    <h2>8. Contact</h2>
-    <p>Pour toute question relative aux présentes conditions ou pour toute demande de partenariat, vous pouvez nous contacter :</p>
-    <div class="contact-info">
-        <strong>E-mail de contact officiel :</strong> <a href="mailto:contact@tfmorocco.com">contact@tfmorocco.com</a><br>
-        <strong>Support technique :</strong> <a href="mailto:ftm.contact.1@gmail.com">ftm.contact.1@gmail.com</a>
+      </div>
     </div>
 
-    <footer>
-        &copy; 2026 Recettes françaises En France - <a href="https://www.tfmorocco.com">www.tfmorocco.com</a> - Tous droits réservés.
-    </footer>
+  </main>
 
-</body>
-</html>
+  <Footer />
+</Layout>

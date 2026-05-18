@@ -140,6 +140,28 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
         <EzoicAd id={109} />
       </div>
 
+      <!-- Interlinks internes -->
+      {relatedPosts.length > 0 && (
+        <div class="mt-8 rounded-xl border border-accent/20 bg-accent/5 px-6 py-5 max-w-3xl" data-pagefind-ignore>
+          <p class="mb-3 text-xs font-bold uppercase tracking-widest text-accent">
+            🍽️ Recettes qui pourraient vous plaire
+          </p>
+          <ul class="space-y-2">
+            {relatedPosts.slice(0, 5).map(relatedPost => (
+              <li class="flex items-center gap-2">
+                <span class="text-accent text-sm">›</span>
+                <a
+                  href={relatedPost.url}
+                  class="text-sm text-foreground/80 hover:text-accent transition-colors hover:underline underline-offset-2"
+                >
+                  {relatedPost.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
     </article>
 
     <ShareLinks />
@@ -152,7 +174,7 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
           <h2 class="text-sm font-bold uppercase tracking-widest text-foreground/60">Recettes liées</h2>
         </div>
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {relatedPosts.slice(0, 3).map(relatedPost => (
+          {relatedPosts.slice(0, 6).map(relatedPost => (
             <DatabaseRecipeCard post={relatedPost} />
           ))}
         </div>

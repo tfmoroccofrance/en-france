@@ -20,6 +20,10 @@ export default defineConfig({
       expiration: 3600,
     },
   }),
+  redirects: {
+    "/fr/": "/",
+    "/fr": "/",
+  },
   site: SITE.website,
   integrations: [
     sitemap({
