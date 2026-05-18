@@ -48,7 +48,7 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
 ---
 
 <Layout
-  title={`${cleanMetaTitle} | ${SITE.title}`}
+  title={`${cleanMetaTitle} | Recette Française | En France`}
   description={post.metaDescription}
   canonicalURL={canonicalURL}
   ogImage={image}
@@ -86,6 +86,7 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
         <h1 class="max-w-4xl text-lg font-bold leading-snug text-foreground sm:text-xl lg:text-2xl">
           {cleanTitle}
         </h1>
+        <meta itemprop="name" content={cleanTitle} />
 
         {post.excerpt && (
           <p class="max-w-3xl text-sm text-foreground/70 sm:text-base leading-relaxed">
@@ -112,7 +113,7 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
       {post.featuredImage && (
         <img
           src={post.featuredImage}
-          alt={cleanTitle}
+          alt={`${cleanTitle} - recette française facile`}
           loading="eager"
           decoding="async"
           fetchpriority="high"

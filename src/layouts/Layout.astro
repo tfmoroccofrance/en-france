@@ -36,18 +36,26 @@ const socialImageURL = new URL(ogImage, Astro.url);
 const baseStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: SITE.title,
+  name: "Recettes Françaises | En France",
+  alternateName: "En France Recettes",
   url: SITE.website,
-  description,
-  inLanguage: SITE.lang,
+  description: "Découvrez les meilleures recettes françaises faciles et rapides. Cuisine maison, plats traditionnels et idées repas pour cuisiner au quotidien en France.",
+  inLanguage: "fr-FR",
   publisher: {
-    "@type": "Person",
-    name: author,
-    ...(profile && { url: profile }),
+    "@type": "Organization",
+    name: "En France",
+    url: SITE.website,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE.website}recette%20facile%20en%20france%20logo.svg`,
+    },
   },
   potentialAction: {
     "@type": "SearchAction",
-    target: `${SITE.website}search/?q={search_term_string}`,
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE.website}search/?q={search_term_string}`,
+    },
     "query-input": "required name=search_term_string",
   },
 };
@@ -114,6 +122,12 @@ const structuredDataItems = [
     <meta name="description" content={description} />
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Recettes Françaises | En France" />
+    <meta property="og:locale" content="fr_FR" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />
