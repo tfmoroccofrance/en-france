@@ -1,5 +1,223 @@
 ---
-export async function getStaticPaths() {
-  return [];
-}
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
+import EzoicAd from "@/components/EzoicAd.astro";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SITE } from "@/config";
+import { fetchFeaturedPosts, fetchLatestPosts } from "@/lib/posts";
+import { fetchSeoCategories } from "@/lib/categories";
+
+const [featuredPostsResult, latestPostsResult, categoriesResult] = await Promise.all([
+  fetchFeaturedPosts(3),
+  fetchLatestPosts(SITE.postPerIndex),
+  fetchSeoCategories(),
+]);
+
+const featuredPosts = featuredPostsResult.data;
+const databaseLatestPosts = latestPostsResult.data;
+const hasDatabasePosts = databaseLatestPosts.length > 0;
+const trendingDatabasePosts = databaseLatestPosts.slice(0, 3);
+const popularDatabasePosts = databaseLatestPosts.slice(3, 7);
+const categories = categoriesResult.data;
+const heroPost = databaseLatestPosts[0];
 ---
+
+<Layout
+  title={`Recettes françaises | ${SITE.title}`}
+  description="Recettes françaises faciles, repas rapides et idées de cuisine maison pour cuisiner simplement au quotidien."
+>
+  <Header />
+  <main id="main-content" data-layout="index">
+
+    <!-- HERO -->
+    <section class="bg-[linear-gradient(135deg,#fff7ef,#f7d9c4_55%,#f1b58f)]">
+      <div class="app-layout py-8 sm:py-14">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+
+          <div class="text-center lg:text-left">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-accent sm:text-sm">
+              Cuisine francaise simple et gourmande
+            </p>
+            <h1 class="text-3xl font-bold leading-tight text-[#432818] sm:text-5xl lg:text-6xl">
+              Recettes françaises
+            </h1>
+            <p class="mt-3 text-base text-[#5f4636] sm:text-lg">
+              Des recettes francaises, des idees de repas et des conseils cuisine
+              penses pour les lecteurs en France.
+            </p>
+            <form action="/search/" class="mt-5 flex flex-col gap-3 sm:flex-row">
+              <label class="sr-only" for="home-search">Rechercher une recette</label>
+              <input
+                id="home-search"
+                name="q"
+                type="search"
+                placeholder="Rechercher une recette..."
+                class="min-h-12 flex-1 rounded-md border border-border bg-background px-4 text-foreground shadow-sm"
+              />
+              <button class="min-h-12 rounded-md bg-accent px-5 font-semibold text-background transition hover:opacity-90">
+                Rechercher
+              </button>
+            </form>
+          </div>
+
+          {heroPost && (
+            <a href={heroPost.url ?? "/"} class="block overflow-hidden rounded-xl bg-white shadow-lg transition hover:shadow-xl">
+              <div class="relative">
+                <img
+                  src={heroPost.featuredImage}
+                  alt={heroPost.title ?? "Recette du moment"}
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
+                  class="block h-52 w-full object-cover sm:h-64"
+                />
+                <span class="absolute top-3 left-3 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">
+                  Recette du moment
+                </span>
+              </div>
+              <div class="p-4">
+                <p class="text-base font-semibold text-foreground leading-snug">
+                  {heroPost.title ?? "Recettes françaises"}
+                </p>
+              </div>
+            </a>
+          )}
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Ezoic | 180 | home_page_under_menu -->
+    <div class="app-layout my-4">
+      <EzoicAd id={180} />
+    </div>
+
+    <!-- RECETTES À LA UNE -->
+    {featuredPosts.length > 0 && (
+      <section id="featured" class="app-layout pt-10 pb-6">
+        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Recettes à la une</h2>
+        <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredPosts.slice(0, 3).map((post, index) => (
+            <DatabaseRecipeCard post={post} eager={index === 0} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- CATÉGORIES -->
+    <section class="app-layout pt-8 pb-6">
+      <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Catégories</h2>
+      <div class="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {categories.map(category => (
+          
+            href={category.url}
+            class="rounded-lg border border-border bg-background p-3 text-sm font-semibold shadow-sm transition hover:-translate-y-0.5 hover:border-accent sm:p-4 sm:text-base"
+          >
+            {category.name}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Ezoic | 102 | under_page_title -->
+    <div class="app-layout my-4">
+      <EzoicAd id={102} />
+    </div>
+
+    <!-- DERNIÈRES RECETTES -->
+    {hasDatabasePosts && (
+      <section id="recent-posts" class="app-layout pt-10 pb-6">
+        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Dernières recettes</h2>
+        <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {databaseLatestPosts.map(post => (
+            <DatabaseRecipeCard post={post} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- TENDANCES + POPULAIRES -->
+    <section class="app-layout grid grid-cols-1 gap-8 pt-8 pb-6 lg:grid-cols-2">
+      <div>
+        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Tendances</h2>
+        <div class="mt-5 grid grid-cols-1 gap-4">
+          {trendingDatabasePosts.map(post => (
+            <DatabaseRecipeCard post={post} />
+          ))}
+        </div>
+      </div>
+      <div>
+        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Articles populaires</h2>
+        <div class="mt-5 space-y-3">
+          {popularDatabasePosts.map(post => (
+            <a href={post.url} class="block rounded-lg border border-border p-4 transition hover:border-accent">
+              <span class="text-xs font-semibold text-accent">{post.category}</span>
+              <h3 class="mt-1 text-sm font-semibold sm:text-base">{post.title}</h3>
+              <p class="mt-1 text-xs text-foreground/70 sm:text-sm line-clamp-2">{post.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="bg-muted/35">
+      <div class="app-layout py-10">
+        <h2 class="text-xl font-semibold sm:text-2xl">Recevoir les nouvelles recettes</h2>
+        <form id="newsletterForm" class="mt-5 flex flex-col gap-3 sm:flex-row sm:max-w-xl">
+          <label class="sr-only" for="newsletter-email">Adresse email</label>
+          <input
+            id="newsletter-email"
+            type="email"
+            placeholder="votre@email.fr"
+            class="min-h-12 flex-1 rounded-md border border-border bg-background px-4"
+          />
+          <button class="min-h-12 rounded-md bg-accent px-5 font-semibold text-background">
+            S'inscrire
+          </button>
+        </form>
+        <p id="newsletterMsg" class="mt-2 text-sm text-foreground/70"></p>
+      </div>
+    </section>
+
+    <!-- TOUTES LES RECETTES -->
+    <div class="my-8 text-center">
+      <LinkButton href="/posts/">
+        Toutes les recettes
+        <IconArrowRight class="inline-block rtl:-rotate-180" />
+      </LinkButton>
+    </div>
+
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import { createClient } from '@supabase/supabase-js';
+  const supabase = createClient(
+    import.meta.env.PUBLIC_SUPABASE_URL,
+    import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+  );
+
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)?.dataset?.layout;
+    if (indexLayout) sessionStorage.setItem("backUrl", "/");
+
+    const form = document.getElementById("newsletterForm") as HTMLFormElement | null;
+    const msg = document.getElementById("newsletterMsg") as HTMLParagraphElement | null;
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = (document.getElementById("newsletter-email") as HTMLInputElement).value;
+      const { error } = await supabase.from("newsletter_subscribers").insert({ email });
+      if (!error) {
+        msg!.textContent = "Merci pour votre inscription !";
+        form.reset();
+      } else if ((error as any).code === "23505") {
+        msg!.textContent = "Cet email est déjà inscrit.";
+      }
+    });
+  });
+</script>

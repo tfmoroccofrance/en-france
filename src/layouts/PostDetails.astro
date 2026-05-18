@@ -11,9 +11,7 @@ import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
-import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
 import RecipeMeta from "@/components/RecipeMeta.astro";
-import AdSlot from "@/components/AdSlot.astro";
 import EzoicAd from "@/components/EzoicAd.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -57,60 +55,37 @@ const {
 const { Content } = await render(post);
 
 let ogImageUrl: string | undefined;
-
 if (typeof initOgImage === "string") {
   ogImageUrl = initOgImage;
 } else if (initOgImage?.src) {
   ogImageUrl = initOgImage.src;
 }
-
 if (!ogImageUrl && SITE.dynamicOgImage) {
   ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
 }
-
-const ogImage = ogImageUrl
-  ? new URL(ogImageUrl, Astro.url.origin).href
-  : undefined;
+const ogImage = ogImageUrl ? new URL(ogImageUrl, Astro.url.origin).href : undefined;
 
 const structuredDataItems: Array<Record<string, unknown> | undefined> = [
   createRecipeSchema(post, Astro.url),
   createBreadcrumbSchema([
     { name: "Accueil", url: new URL("/", Astro.url).href },
-    {
-      name: getPostCategories(category, categories)[0] ?? "Recettes",
-      url: new URL("/posts/", Astro.url).href,
-    },
+    { name: getPostCategories(category, categories)[0] ?? "Recettes", url: new URL("/posts/", Astro.url).href },
     { name: title, url: new URL(getPath(post.id, post.filePath), Astro.url).href },
   ]),
   createFaqSchema(faq),
 ];
-const structuredData = structuredDataItems.filter(
-  (item): item is Record<string, unknown> => Boolean(item)
-);
+const structuredData = structuredDataItems.filter((item): item is Record<string, unknown> => Boolean(item));
 
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
-  author,
-  description,
-  pubDatetime,
-  modDatetime,
-  canonicalURL,
-  ogImage,
-  scrollSmooth: true,
-  structuredData,
+  author, description, pubDatetime, modDatetime, canonicalURL, ogImage,
+  scrollSmooth: true, structuredData,
 };
 
-/* ========== Prev/Next Posts ========== */
-const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
-  id,
-  title,
-  filePath,
-}));
-
+const allPosts = posts.map(({ data: { title }, id, filePath }) => ({ id, title, filePath }));
 const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
-const nextPost =
-  currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
+const nextPost = currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
 
 const postCategories = getPostCategories(category, categories);
 const relatedPosts = posts
@@ -125,22 +100,14 @@ const relatedPosts = posts
   .slice(0, 3);
 
 const heroImage = featuredImage ?? initOgImage;
-
-// Build nutrition entries for recipe card
 const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) => v) : [];
 ---
 
 <Layout {...layoutProps}>
   <Header />
   <BackButton />
+  <main id="main-content" class:list={["app-layout pb-16", { "mt-8": !SITE.showBackButton }]} data-pagefind-body>
 
-  <main
-    id="main-content"
-    class:list={["app-layout pb-16", { "mt-8": !SITE.showBackButton }]}
-    data-pagefind-body
-  >
-
-    <!-- ── Breadcrumb ── -->
     <nav aria-label="Fil d'Ariane" class="mb-6 text-sm text-foreground/50 tracking-wide">
       <a href="/" class="hover:text-accent transition-colors">Accueil</a>
       <span aria-hidden="true" class="mx-2 opacity-40">/</span>
@@ -149,39 +116,26 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       <span class="text-foreground/70">{title}</span>
     </nav>
 
-    <!-- ── Category Pills ── -->
     <div class="flex flex-wrap justify-center gap-2 mb-5">
       {postCategories.map(item => (
-        <span class="rounded-full border border-accent/30 bg-accent/8 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-accent">
-          {item}
-        </span>
+        <span class="rounded-full border border-accent/30 bg-accent/8 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-accent">{item}</span>
       ))}
     </div>
 
-    <!-- ── TITLE ── -->
     <div class="mx-auto max-w-3xl text-center mb-6">
-      <h1
-        transition:name={slugifyStr(title.replaceAll(".", "-"))}
-        class="font-serif text-2xl font-bold leading-tight text-foreground sm:text-3xl lg:text-4xl"
-        style="font-family: 'Georgia', 'Playfair Display', serif; letter-spacing: -0.02em;"
-      >
+      <h1 transition:name={slugifyStr(title.replaceAll(".", "-"))}
+        class="font-serif text-lg font-bold leading-snug text-foreground sm:text-xl lg:text-2xl"
+        style="font-family: 'Georgia', 'Playfair Display', serif;">
         {title}
       </h1>
     </div>
 
-    <!-- Ezoic | 102 | under_page_title -->
-    <div class="mx-auto max-w-3xl my-4">
-      <EzoicAd id={102} />
-    </div>
+    <div class="mx-auto max-w-3xl my-4"><EzoicAd id={102} /></div>
 
-    <!-- ── Description / Excerpt ── -->
     {description && (
-      <p class="mx-auto max-w-2xl text-center text-lg leading-relaxed text-foreground/65 mb-6">
-        {description}
-      </p>
+      <p class="mx-auto max-w-2xl text-center text-base leading-relaxed text-foreground/65 mb-6">{description}</p>
     )}
 
-    <!-- ── Meta: auteur + date ── -->
     <div class="mx-auto max-w-2xl text-center mb-2">
       <div class="flex flex-wrap items-center justify-center gap-3 text-sm text-foreground/55">
         <span class="font-medium">Par {author}</span>
@@ -191,57 +145,29 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       </div>
     </div>
 
-    <!-- ── Recipe Quick Stats ── -->
     <div class="mx-auto max-w-2xl text-center mb-8">
       <RecipeMeta {prepTime} {cookTime} {totalTime} {recipeYield} />
     </div>
 
-    <!-- ── Séparateur décoratif ── -->
     <div class="mx-auto mb-8 flex items-center justify-center gap-3 max-w-xs opacity-30">
       <div class="h-px flex-1 bg-foreground/40"></div>
       <span class="text-foreground/60 text-lg">✦</span>
       <div class="h-px flex-1 bg-foreground/40"></div>
     </div>
 
-    <!-- ── Ad Slot ── -->
-    <AdSlot label="Emplacement publicitaire" />
-
-    <!-- ── Corps de l'article ── -->
-    <article
-      id="article"
-      class="post-article mx-auto mt-8 w-full max-w-3xl prose prose-lg
-             prose-headings:font-serif prose-headings:font-bold
-             prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-             prose-p:leading-relaxed prose-p:text-foreground/80
-             prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-             prose-img:rounded-xl prose-img:shadow-md prose-img:mx-auto
-             prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
-    >
+    <article id="article" class="post-article mx-auto mt-8 w-full max-w-3xl prose prose-lg prose-headings:font-serif prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-p:leading-relaxed prose-p:text-foreground/80 prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md prose-img:mx-auto prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)">
       <Content />
     </article>
 
-    <!-- Ezoic | 109 | under_first_paragraph -->
-    <div class="mx-auto max-w-3xl my-6">
-      <EzoicAd id={109} />
-    </div>
+    <div class="mx-auto max-w-3xl my-6"><EzoicAd id={109} /></div>
 
-    <!-- ══════════════════════════════════════════════
-         RECIPE CARD
-    ══════════════════════════════════════════════ -->
     {(ingredients?.length || instructions?.length) && (
-      <section
-        id="recipe-card"
-        class="recipe-card mx-auto mt-14 max-w-3xl overflow-hidden rounded-2xl border border-border shadow-lg"
-        aria-label="Fiche recette"
-      >
-        <!-- Card Header -->
+      <section id="recipe-card" class="recipe-card mx-auto mt-14 max-w-3xl overflow-hidden rounded-2xl border border-border shadow-lg" aria-label="Fiche recette">
         <div class="recipe-card-header bg-accent px-6 py-5 text-background">
           <div class="flex items-center justify-between flex-wrap gap-3">
             <div>
               <p class="text-xs font-semibold uppercase tracking-widest opacity-80 mb-1">Fiche Recette</p>
-              <h2 class="text-2xl font-bold leading-snug" style="font-family: 'Georgia', serif;">
-                {title}
-              </h2>
+              <h2 class="text-2xl font-bold leading-snug" style="font-family: 'Georgia', serif;">{title}</h2>
             </div>
             {typeof heroImage === "string" ? (
               <img src={heroImage} alt={title} class="h-20 w-20 rounded-xl object-cover shadow-md flex-none" />
@@ -251,48 +177,24 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
           </div>
         </div>
 
-        <!-- Quick Stats Bar -->
         {(prepTime || cookTime || totalTime || recipeYield) && (
           <div class="recipe-stats grid grid-cols-2 divide-x divide-border border-b border-border bg-muted/30 sm:grid-cols-4">
-            {prepTime && (
-              <div class="flex flex-col items-center py-4 px-3 text-center">
-                <span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Préparation</span>
-                <span class="text-lg font-bold text-foreground">{prepTime}</span>
-              </div>
-            )}
-            {cookTime && (
-              <div class="flex flex-col items-center py-4 px-3 text-center">
-                <span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Cuisson</span>
-                <span class="text-lg font-bold text-foreground">{cookTime}</span>
-              </div>
-            )}
-            {totalTime && (
-              <div class="flex flex-col items-center py-4 px-3 text-center">
-                <span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Total</span>
-                <span class="text-lg font-bold text-foreground">{totalTime}</span>
-              </div>
-            )}
-            {recipeYield && (
-              <div class="flex flex-col items-center py-4 px-3 text-center">
-                <span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Portions</span>
-                <span class="text-lg font-bold text-foreground">{recipeYield}</span>
-              </div>
-            )}
+            {prepTime && <div class="flex flex-col items-center py-4 px-3 text-center"><span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Préparation</span><span class="text-lg font-bold text-foreground">{prepTime}</span></div>}
+            {cookTime && <div class="flex flex-col items-center py-4 px-3 text-center"><span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Cuisson</span><span class="text-lg font-bold text-foreground">{cookTime}</span></div>}
+            {totalTime && <div class="flex flex-col items-center py-4 px-3 text-center"><span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Total</span><span class="text-lg font-bold text-foreground">{totalTime}</span></div>}
+            {recipeYield && <div class="flex flex-col items-center py-4 px-3 text-center"><span class="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-1">Portions</span><span class="text-lg font-bold text-foreground">{recipeYield}</span></div>}
           </div>
         )}
 
         <div class="p-6 sm:p-8 space-y-8 bg-background">
-
-          <!-- Ingredients -->
           {ingredients?.length && (
             <div>
-              <h3 class="recipe-section-title flex items-center gap-2 text-lg font-bold uppercase tracking-widest text-foreground mb-4">
-                <span class="inline-block h-0.5 w-6 bg-accent"></span>
-                Ingrédients
+              <h3 class="flex items-center gap-2 text-lg font-bold uppercase tracking-widest text-foreground mb-4">
+                <span class="inline-block h-0.5 w-6 bg-accent"></span>Ingrédients
               </h3>
               <ul class="grid gap-2 sm:grid-cols-2">
                 {ingredients.map(item => (
-                  <li class="ingredient-item flex items-start gap-3 py-2 border-b border-dashed border-border/50 last:border-0">
+                  <li class="flex items-start gap-3 py-2 border-b border-dashed border-border/50 last:border-0">
                     <span class="mt-1 h-2 w-2 flex-none rounded-full bg-accent/70"></span>
                     <span class="text-foreground/85 text-sm leading-snug">{item}</span>
                   </li>
@@ -301,39 +203,28 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
             </div>
           )}
 
-          <!-- Ezoic | 111 | mid_content -->
-          {ingredients?.length && instructions?.length && (
-            <EzoicAd id={111} />
-          )}
+          {ingredients?.length && instructions?.length && <EzoicAd id={111} />}
 
-          <!-- Instructions -->
           {instructions?.length && (
             <div>
-              <h3 class="recipe-section-title flex items-center gap-2 text-lg font-bold uppercase tracking-widest text-foreground mb-4">
-                <span class="inline-block h-0.5 w-6 bg-accent"></span>
-                Préparation
+              <h3 class="flex items-center gap-2 text-lg font-bold uppercase tracking-widest text-foreground mb-4">
+                <span class="inline-block h-0.5 w-6 bg-accent"></span>Préparation
               </h3>
               <ol class="space-y-4">
                 {instructions.map((step, index) => (
-                  <li class="step-item flex gap-4">
-                    <span class="step-number grid h-8 w-8 flex-none place-items-center rounded-full bg-accent text-sm font-bold text-background shadow-sm">
-                      {index + 1}
-                    </span>
-                    <div class="pt-1">
-                      <p class="text-foreground/85 leading-relaxed text-sm">{step}</p>
-                    </div>
+                  <li class="flex gap-4">
+                    <span class="grid h-8 w-8 flex-none place-items-center rounded-full bg-accent text-sm font-bold text-background shadow-sm">{index + 1}</span>
+                    <div class="pt-1"><p class="text-foreground/85 leading-relaxed text-sm">{step}</p></div>
                   </li>
                 ))}
               </ol>
             </div>
           )}
 
-          <!-- Nutrition -->
           {nutritionEntries.length > 0 && (
             <div>
-              <h3 class="recipe-section-title flex items-center gap-2 text-lg font-bold uppercase tracking-widest text-foreground mb-4">
-                <span class="inline-block h-0.5 w-6 bg-accent"></span>
-                Valeurs nutritionnelles
+              <h3 class="flex items-center gap-2 text-lg font-bold uppercase tracking-widest text-foreground mb-4">
+                <span class="inline-block h-0.5 w-6 bg-accent"></span>Valeurs nutritionnelles
               </h3>
               <dl class="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {nutritionEntries.map(([key, value]) => (
@@ -346,27 +237,19 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
             </div>
           )}
 
-          <!-- Card Footer -->
           <div class="flex items-center justify-between border-t border-border/50 pt-5 text-xs text-foreground/40">
-            <span>Par {author}</span>
-            <span>{SITE.title}</span>
+            <span>Par {author}</span><span>{SITE.title}</span>
           </div>
-
         </div>
       </section>
     )}
 
-    <!-- Ezoic | 110 | under_second_paragraph -->
-    <div class="mx-auto max-w-3xl my-8">
-      <EzoicAd id={110} />
-    </div>
+    <div class="mx-auto max-w-3xl my-8"><EzoicAd id={110} /></div>
 
-    <!-- ── FAQ ── -->
     {faq?.length && (
       <section class="mx-auto mt-12 max-w-3xl">
         <h2 class="flex items-center gap-3 text-xl font-bold uppercase tracking-widest text-foreground mb-5">
-          <span class="inline-block h-0.5 w-6 bg-accent"></span>
-          Questions fréquentes
+          <span class="inline-block h-0.5 w-6 bg-accent"></span>Questions fréquentes
         </h2>
         <div class="space-y-3">
           {faq.map(item => (
@@ -382,23 +265,18 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       </section>
     )}
 
-    <!-- ── À propos de l'auteur ── -->
     <section class="mx-auto mt-12 max-w-3xl rounded-2xl border border-border bg-muted/20 px-6 py-6">
       <h2 class="flex items-center gap-3 text-base font-bold uppercase tracking-widest text-foreground/60 mb-3">
-        <span class="inline-block h-0.5 w-5 bg-accent/60"></span>
-        À propos de l'auteur
+        <span class="inline-block h-0.5 w-5 bg-accent/60"></span>À propos de l'auteur
       </h2>
       <p class="text-sm leading-relaxed text-foreground/65">
-        {author} partage des recettes accessibles, testées pour une cuisine
-        familiale française, claire et gourmande.
+        {author} partage des recettes accessibles, testées pour une cuisine familiale française, claire et gourmande.
       </p>
     </section>
 
     <hr class="mx-auto my-10 max-w-3xl border-dashed opacity-30" />
-
     <EditPost class="sm:hidden" {hideEditPost} {post} />
 
-    <!-- ── Tags ── -->
     <ul class="mt-4 mb-8 flex flex-wrap gap-3">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}
     </ul>
@@ -406,22 +284,19 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
     <BackToTopButton />
     <ShareLinks />
 
-    <!-- ── Recettes liées ── -->
     {relatedPosts.length > 0 && (
       <section class="mt-14" data-pagefind-ignore>
         <h2 class="flex items-center gap-3 text-xl font-bold uppercase tracking-widest text-foreground mb-6">
-          <span class="inline-block h-0.5 w-6 bg-accent"></span>
-          Recettes liées
+          <span class="inline-block h-0.5 w-6 bg-accent"></span>Recettes liées
         </h2>
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedPosts.map(post => <DatabaseRecipeCard post={post} />)}
+          {relatedPosts.map(post => <RecipeCard post={post} />)}
         </div>
       </section>
     )}
 
     <hr class="my-8 border-dashed opacity-20" />
 
-    <!-- ── Prev / Next ── -->
     <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {prevPost && (
         <a href={getPath(prevPost.id, prevPost.filePath)} class="flex w-full gap-2 hover:opacity-75 transition-opacity">
@@ -517,9 +392,7 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       codeBlock.appendChild(copyButton);
       codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
       wrapper.appendChild(codeBlock);
-      copyButton.addEventListener("click", async () => {
-        await copyCode(codeBlock, copyButton);
-      });
+      copyButton.addEventListener("click", async () => { await copyCode(codeBlock, copyButton); });
     }
     async function copyCode(block, button) {
       const code = block.querySelector("code");
@@ -531,7 +404,5 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
   }
   attachCopyButtons();
 
-  document.addEventListener("astro:after-swap", () =>
-    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
-  );
+  document.addEventListener("astro:after-swap", () => window.scrollTo({ left: 0, top: 0, behavior: "instant" }));
 </script>
