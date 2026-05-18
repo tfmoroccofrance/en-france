@@ -33,56 +33,70 @@ const heroAlt = heroPost?.title || "Recette du moment";
   <Header />
   <main id="main-content" data-layout="index">
 
-    <section class="bg-[linear-gradient(135deg,#fff7ef,#f7d9c4_55%,#f1b58f)]">
-      <div class="app-layout py-8 sm:py-14">
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div class="text-center lg:text-left">
-            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-accent sm:text-sm">
-              Cuisine francaise simple et gourmande
-            </p>
-            <h1 class="text-3xl font-bold leading-tight text-[#432818] sm:text-5xl lg:text-6xl">
-              Recettes françaises
+    <section class="relative overflow-hidden bg-[linear-gradient(135deg,#fff7ef,#f7d9c4_55%,#f1b58f)]">
+
+      <div class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-accent/10 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-10 -left-10 h-48 w-48 rounded-full bg-accent/8 blur-2xl"></div>
+
+      <div class="app-layout relative py-10 sm:py-16">
+        <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+
+          <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
+
+            <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent">
+              🇫🇷 Cuisine française
+            </span>
+
+            <h1 class="text-3xl font-bold leading-tight text-[#432818] sm:text-4xl lg:text-5xl">
+              Recettes<br/>
+              <span class="text-accent">françaises</span>
             </h1>
-            <p class="mt-3 text-base text-[#5f4636] sm:text-lg">
-              Des recettes francaises, des idees de repas et des conseils cuisine
-              penses pour les lecteurs en France.
+
+            <p class="mt-4 max-w-sm text-sm leading-relaxed text-[#6b4c3b]">
+              Des recettes simples et savoureuses, pensées pour cuisiner au quotidien en France.
             </p>
-            <form action="/search/" class="mt-5 flex flex-col gap-3 sm:flex-row">
+
+            <form action="/search/" class="mt-6 flex w-full max-w-sm overflow-hidden rounded-xl border border-accent/20 bg-white/70 shadow-md backdrop-blur-sm">
               <label class="sr-only" for="home-search">Rechercher une recette</label>
               <input
                 id="home-search"
                 name="q"
                 type="search"
                 placeholder="Rechercher une recette..."
-                class="min-h-12 flex-1 rounded-md border border-border bg-background px-4 text-foreground shadow-sm"
+                class="min-h-11 flex-1 bg-transparent px-4 text-sm text-foreground placeholder:text-foreground/40 outline-none"
               />
-              <button class="min-h-12 rounded-md bg-accent px-5 font-semibold text-background transition hover:opacity-90">
-                Rechercher
+              <button class="m-1 rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90">
+                Chercher
               </button>
             </form>
+
           </div>
 
           {heroPost ? (
-            <a href={heroPost.url} class="block overflow-hidden rounded-xl bg-white shadow-lg transition hover:shadow-xl">
-              <div class="relative">
-                <img
-                  src={heroPost.featuredImage}
-                  alt="Recette"
-                  loading="eager"
-                  decoding="async"
-                  class="block h-52 w-full object-cover sm:h-64"
-                />
-                <span class="absolute top-3 left-3 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">
-                  Recette du moment
-                </span>
-              </div>
-              <div class="p-4">
-                <p class="text-base font-semibold text-foreground leading-snug">
+            <a
+              href={heroPost.url}
+              class="group relative block overflow-hidden rounded-2xl shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
+            >
+              <img
+                src={heroPost.featuredImage}
+                alt="Recette du moment"
+                loading="eager"
+                decoding="async"
+                class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <span class="absolute top-4 left-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white shadow-md">
+                ✨ Recette du moment
+              </span>
+              <div class="absolute bottom-0 left-0 right-0 p-5">
+                <p class="text-sm font-bold leading-snug text-white drop-shadow-md sm:text-base">
                   {heroPost.title}
                 </p>
+                <p class="mt-1 text-xs text-white/70">Voir la recette →</p>
               </div>
             </a>
           ) : null}
+
         </div>
       </div>
     </section>
@@ -93,7 +107,7 @@ const heroAlt = heroPost?.title || "Recette du moment";
 
     {featuredPosts.length > 0 && (
       <section id="featured" class="app-layout pt-10 pb-6">
-        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Recettes à la une</h2>
+        <h2 class="text-base font-semibold tracking-wide sm:text-lg">Recettes à la une</h2>
         <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featuredPosts.slice(0, 3).map((post, index) => (
             <DatabaseRecipeCard post={post} eager={index === 0} />
@@ -103,7 +117,7 @@ const heroAlt = heroPost?.title || "Recette du moment";
     )}
 
     <section class="app-layout pt-8 pb-6">
-      <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Catégories</h2>
+      <h2 class="text-base font-semibold tracking-wide sm:text-lg">Catégories</h2>
       <div class="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {categories.map(category => (
           <a
@@ -122,7 +136,7 @@ const heroAlt = heroPost?.title || "Recette du moment";
 
     {hasDatabasePosts && (
       <section id="recent-posts" class="app-layout pt-10 pb-6">
-        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Dernières recettes</h2>
+        <h2 class="text-base font-semibold tracking-wide sm:text-lg">Dernières recettes</h2>
         <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {databaseLatestPosts.map(post => (
             <DatabaseRecipeCard post={post} />
@@ -133,21 +147,37 @@ const heroAlt = heroPost?.title || "Recette du moment";
 
     <section class="app-layout grid grid-cols-1 gap-8 pt-8 pb-6 lg:grid-cols-2">
       <div>
-        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Tendances</h2>
-        <div class="mt-5 grid grid-cols-1 gap-4">
-          {trendingDatabasePosts.map(post => (
-            <DatabaseRecipeCard post={post} />
+        <h2 class="text-base font-semibold tracking-wide sm:text-lg">Tendances</h2>
+        <ul class="mt-4 divide-y divide-border rounded-xl border border-border overflow-hidden">
+          {trendingDatabasePosts.map((post, index) => (
+            <li>
+              <a href={post.url} class="flex items-center gap-3 px-4 py-3 transition hover:bg-muted/30 group">
+                <span class="flex-none text-xs font-bold text-accent/40 w-4">{index + 1}</span>
+                {post.featuredImage && (
+                  <img
+                    src={post.featuredImage}
+                    alt=""
+                    loading="lazy"
+                    class="h-12 w-16 flex-none rounded-lg object-cover"
+                  />
+                )}
+                <div class="min-w-0 flex-1">
+                  <p class="text-xs font-semibold uppercase tracking-wide text-accent mb-0.5">{post.category}</p>
+                  <p class="text-sm font-semibold text-foreground line-clamp-2 leading-snug group-hover:text-accent transition-colors">{post.title}</p>
+                </div>
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
       <div>
-        <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">Articles populaires</h2>
+        <h2 class="text-base font-semibold tracking-wide sm:text-lg">Articles populaires</h2>
         <div class="mt-5 space-y-3">
           {popularDatabasePosts.map(post => (
             <a href={post.url} class="block rounded-lg border border-border p-4 transition hover:border-accent">
               <span class="text-xs font-semibold text-accent">{post.category}</span>
-              <h3 class="mt-1 text-sm font-semibold sm:text-base">{post.title}</h3>
-              <p class="mt-1 text-xs text-foreground/70 sm:text-sm line-clamp-2">{post.excerpt}</p>
+              <h3 class="mt-0.5 text-sm font-semibold leading-snug">{post.title}</h3>
+              <p class="mt-0.5 text-xs text-foreground/65 line-clamp-2 leading-relaxed">{post.excerpt}</p>
             </a>
           ))}
         </div>
@@ -156,7 +186,7 @@ const heroAlt = heroPost?.title || "Recette du moment";
 
     <section class="bg-muted/35">
       <div class="app-layout py-10">
-        <h2 class="text-xl font-semibold sm:text-2xl">Recevoir les nouvelles recettes</h2>
+        <h2 class="text-base font-semibold sm:text-lg">Recevoir les nouvelles recettes</h2>
         <form id="newsletterForm" class="mt-5 flex flex-col gap-3 sm:flex-row sm:max-w-xl">
           <label class="sr-only" for="newsletter-email">Adresse email</label>
           <input
