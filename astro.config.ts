@@ -15,7 +15,11 @@ import { SITE } from "./src/config";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  adapter: vercel(),
+  adapter: vercel({
+    isr: {
+      expiration: 3600,
+    },
+  }),
   site: SITE.website,
   integrations: [
     sitemap({

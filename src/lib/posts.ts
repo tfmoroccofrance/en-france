@@ -3,11 +3,14 @@ import { supabase } from "@/lib/supabase";
 import { fetchSeoCategories, getCategoryBySlug } from "@/lib/categories";
 
 const POST_COLUMNS_WITH_CATEGORY_SLUG =
-  "id,title,slug,content,excerpt,featured_image,category,category_slug,published_at,meta_title,meta_description,created_at";
+  "id,title,slug,excerpt,featured_image,category,category_slug,published_at,meta_title,meta_description,created_at";
 const POST_COLUMNS_WITH_FEATURED =
-  "id,title,slug,content,excerpt,featured_image,category,category_slug,is_featured,published_at,meta_title,meta_description,created_at";
+  "id,title,slug,excerpt,featured_image,category,category_slug,is_featured,published_at,meta_title,meta_description,created_at";
 const LEGACY_POST_COLUMNS =
-  "id,title,slug,content,excerpt,featured_image,category,published_at,meta_title,meta_description,created_at";
+  "id,title,slug,excerpt,featured_image,category,published_at,meta_title,meta_description,created_at";
+
+const POST_COLUMNS_WITH_CONTENT =
+  "id,title,slug,content,excerpt,featured_image,category,category_slug,published_at,meta_title,meta_description,created_at";
 
 const SEO_DEFAULT_CATEGORY = "Cuisine";
 const DEFAULT_CATEGORY_SLUG = "cuisine";
@@ -147,7 +150,7 @@ export async function fetchPostBySlug(
   try {
     const { data, error } = await supabase
       .from("posts")
-      .select(POST_COLUMNS_WITH_CATEGORY_SLUG)
+      .select(POST_COLUMNS_WITH_CONTENT)
       .eq("slug", normalizeSlug(slug))
       .maybeSingle();
 
@@ -156,7 +159,7 @@ export async function fetchPostBySlug(
 
       const legacyResult = await supabase
         .from("posts")
-        .select(LEGACY_POST_COLUMNS)
+        .select(POST_COLUMNS_WITH_CONTENT)
         .eq("slug", normalizeSlug(slug))
         .maybeSingle();
 
@@ -242,10 +245,6 @@ export async function fetchLatestPosts(
         data: toVisiblePosts(legacyResult.data),
         error: null,
       };
-    }
-    if (data && data[0]) {
-      console.log("[supabase] raw first post keys:", Object.keys(data[0]).join(", "));
-      console.log("[supabase] raw featured_image value:", (data[0] as Record<string, unknown>).featured_image);
     }
     return {
       data: toVisiblePosts(data),
