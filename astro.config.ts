@@ -12,10 +12,13 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
 import { createClient } from "@supabase/supabase-js";
+import { loadEnv } from "vite";
+
+const env = loadEnv("production", process.cwd(), "");
 
 async function getSupabaseSlugs(): Promise<string[]> {
-  const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = env.PUBLIC_SUPABASE_URL;
+  const supabaseKey = env.PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
     console.warn("Sitemap: Supabase env vars missing, skipping dynamic pages.");
