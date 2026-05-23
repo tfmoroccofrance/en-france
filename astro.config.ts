@@ -20,38 +20,48 @@ async function getSupabaseSlugs(): Promise<string[]> {
   const supabaseUrl = env.PUBLIC_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || "";
   const supabaseKey = env.PUBLIC_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY || "";
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.warn("Sitemap: Supabase env vars missing, skipping dynamic pages.");
+  if (!supabaseUrl || !supabaseUrl.startsWith("http")) {
+    console.warn("Sitemap: invalid or missing SUPABASE_URL, skipping.");
     return [];
   }
 
-  const client = createClient(supabaseUrl, supabaseKey);
-
-  const allSlugs: string[] = [];
-  const pageSize = 1000;
-  let offset = 0;
-
-  while (true) {
-    const { data, error } = await client
-      .from("posts")
-      .select("slug")
-      .order("published_at", { ascending: false })
-      .range(offset, offset + pageSize - 1);
-
-    if (error || !data || data.length === 0) break;
-
-    for (const row of data) {
-      if (row.slug) {
-        allSlugs.push(`${SITE.website}${row.slug.replace(/^\/+|\/+$/g, "")}/`);
-      }
-    }
-
-    if (data.length < pageSize) break;
-    offset += pageSize;
+  if (!supabaseKey) {
+    console.warn("Sitemap: missing SUPABASE_ANON_KEY, skipping.");
+    return [];
   }
 
-  console.log(`Sitemap: found ${allSlugs.length} posts from Supabase.`);
-  return allSlugs;
+  try {
+    const client = createClient(supabaseUrl, supabaseKey);
+
+    const allSlugs: string[] = [];
+    const pageSize = 1000;
+    let offset = 0;
+
+    while (true) {
+      const { data, error } = await client
+        .from("posts")
+        .select("slug")
+        .order("published_at", { ascending: false })
+        .range(offset, offset + pageSize - 1);
+
+      if (error || !data || data.length === 0) break;
+
+      for (const row of data) {
+        if (row.slug) {
+          allSlugs.push(`${SITE.website}${row.slug.replace(/^\/+|\/+$/g, "")}/`);
+        }
+      }
+
+      if (data.length < pageSize) break;
+      offset += pageSize;
+    }
+
+    console.log(`Sitemap: found ${allSlugs.length} posts from Supabase.`);
+    return allSlugs;
+  } catch (err) {
+    console.warn("Sitemap: Supabase error, skipping dynamic pages.", err);
+    return [];
+  }
 }
 
 // https://astro.build/config
