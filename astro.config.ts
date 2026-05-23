@@ -11,22 +11,6 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
-import fs from "node:fs";
-
-function readSitemapUrls(): string[] {
-  try {
-    const raw = fs.readFileSync(
-      new URL("./sitemap-urls.json", import.meta.url),
-      "utf-8"
-    );
-    return JSON.parse(raw);
-  } catch {
-    console.warn("Sitemap: sitemap-urls.json not found or invalid, skipping custom pages.");
-    return [];
-  }
-}
-
-const customSitemapUrls = readSitemapUrls();
 
 // https://astro.build/config
 export default defineConfig({
@@ -44,7 +28,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives"),
-      customPages: customSitemapUrls,
+      customPages: [],
     }),
   ],
   markdown: {
