@@ -17,8 +17,18 @@ import { loadEnv } from "vite";
 const env = loadEnv("production", process.cwd(), "");
 
 async function getSupabaseSlugs(): Promise<string[]> {
-  const supabaseUrl = env.PUBLIC_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || "";
-  const supabaseKey = env.PUBLIC_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY || "";
+  const supabaseUrl =
+    env.PUBLIC_SUPABASE_URL ||
+    process.env.PUBLIC_SUPABASE_URL ||
+    env.SUPABASE_URL ||
+    process.env.SUPABASE_URL ||
+    "";
+  const supabaseKey =
+    env.PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.PUBLIC_SUPABASE_ANON_KEY ||
+    env.SUPABASE_ANON_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    "";
 
   if (!supabaseUrl || !supabaseUrl.startsWith("http")) {
     console.warn("Sitemap: invalid or missing SUPABASE_URL, skipping.");
