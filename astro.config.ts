@@ -11,6 +11,45 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
+import { createClient } from "@supabase/supabase-js";
+
+async function getSupabaseSlugs(): Promise<string[]> {
+  const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.warn("Sitemap: Supabase env vars missing, skipping dynamic pages.");
+    return [];
+  }
+
+  const client = createClient(supabaseUrl, supabaseKey);
+
+  const allSlugs: string[] = [];
+  const pageSize = 1000;
+  let offset = 0;
+
+  while (true) {
+    const { data, error } = await client
+      .from("posts")
+      .select("slug")
+      .order("published_at", { ascending: false })
+      .range(offset, offset + pageSize - 1);
+
+    if (error || !data || data.length === 0) break;
+
+    for (const row of data) {
+      if (row.slug) {
+        allSlugs.push(`${SITE.website}${row.slug.replace(/^\/+|\/+$/g, "")}/`);
+      }
+    }
+
+    if (data.length < pageSize) break;
+    offset += pageSize;
+  }
+
+  console.log(`Sitemap: found ${allSlugs.length} posts from Supabase.`);
+  return allSlugs;
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,12 +67,12 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      customPages: await getSupabaseSlugs(),
     }),
   ],
   markdown: {
     remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
     shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
       defaultColor: false,
       wrap: false,
@@ -48,8 +87,6 @@ export default defineConfig({
   vite: {
     // eslint-disable-next-line
     // @ts-ignore
-    // This will be fixed in Astro 6 with Vite 7 support
-    // See: https://github.com/withastro/astro/issues/14030
     plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
