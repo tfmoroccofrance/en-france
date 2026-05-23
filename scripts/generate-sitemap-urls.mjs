@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import { createClient } from "@supabase/supabase-js";
 
+console.log("ENV KEYS:", Object.keys(process.env).filter(k =>
+  k.includes('SUPA') || k.includes('PUBLIC')
+).join(', '));
+
 const SUPABASE_URL =
   process.env.PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || "";
 const SUPABASE_KEY =
