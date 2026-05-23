@@ -37,6 +37,12 @@ while (true) {
     .order("published_at", { ascending: false })
     .range(offset, offset + pageSize - 1);
 
+  console.log("Supabase response:", {
+    error: error?.message,
+    count: data?.length,
+    first: data?.[0]?.slug,
+  });
+
   if (error) {
     console.error("generate-sitemap-urls: Supabase error:", error.message);
     break;
