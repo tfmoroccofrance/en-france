@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { createClient } from "@supabase/supabase-js";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, HeadObjectCommand } from "@aws-sdk/client-s3";
 
 loadEnvFile();
 
@@ -25,7 +25,7 @@ for (const [key, val] of Object.entries({
   if (!val) throw new Error(`Missing env var: ${key}`);
 }
 
-const STORAGE_BUCKET = "En France";
+const BUCKETS = ["En France", "Recettes"];
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: { persistSession: false },
@@ -40,24 +40,33 @@ const r2 = new S3Client({
   },
 });
 
-// --- List all files recursively in the Supabase bucket ---
-async function listAllFiles(prefix = "") {
-  const { data, error } = await supabase.storage
-    .from(STORAGE_BUCKET)
-    .list(prefix, { limit: 1000, offset: 0 });
-
-  if (error) throw new Error(`list("${prefix}"): ${error.message}`);
-
+// --- List all files recursively in a Supabase bucket ---
+async function listAllFiles(bucket, prefix = "") {
   const files = [];
-  for (const item of data ?? []) {
-    const itemPath = prefix ? `${prefix}/${item.name}` : item.name;
-    if (item.id === null) {
-      // folder — recurse
-      files.push(...(await listAllFiles(itemPath)));
-    } else {
-      files.push(itemPath);
+  const limit = 1000;
+  let offset = 0;
+
+  while (true) {
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .list(prefix, { limit, offset });
+
+    if (error) throw new Error(`list("${prefix}", offset=${offset}): ${error.message}`);
+
+    for (const item of data ?? []) {
+      const itemPath = prefix ? `${prefix}/${item.name}` : item.name;
+      if (item.id === null) {
+        // folder — recurse
+        files.push(...(await listAllFiles(bucket, itemPath)));
+      } else {
+        files.push(itemPath);
+      }
     }
+
+    if (!data || data.length < limit) break;
+    offset += limit;
   }
+
   return files;
 }
 
@@ -81,39 +90,63 @@ function escapeRegex(str) {
 }
 
 // --- Main ---
-console.log(`Listing files in Supabase bucket "${STORAGE_BUCKET}"...`);
-const allFiles = await listAllFiles();
-console.log(`Found ${allFiles.length} file(s).\n`);
-
 let migrated = 0;
 let skipped = 0;
 let errors = 0;
+let totalFiles = 0;
 
-for (const filePath of allFiles) {
-  console.log(`Uploading: ${filePath}`);
+for (const bucket of BUCKETS) {
+  console.log(`\nListing files in Supabase bucket "${bucket}"...`);
+  let allFiles;
   try {
-    const { data: blob, error: dlErr } = await supabase.storage
-      .from(STORAGE_BUCKET)
-      .download(filePath);
-    if (dlErr) throw new Error(dlErr.message);
-
-    const buffer = Buffer.from(await blob.arrayBuffer());
-
-    await r2.send(
-      new PutObjectCommand({
-        Bucket: R2_BUCKET,
-        Key: filePath,
-        Body: buffer,
-        ContentType: getMimeType(filePath),
-      })
-    );
-
-    const r2Url = `${R2_PUBLIC_URL}/${filePath}`;
-    console.log(`✅ Done: ${filePath} -> ${r2Url}`);
-    migrated++;
+    allFiles = await listAllFiles(bucket);
   } catch (err) {
-    console.error(`❌ Error migrating "${filePath}": ${err.message}`);
-    errors++;
+    console.warn(`  ⚠️  Bucket "${bucket}" skipped: ${err.message}`);
+    continue;
+  }
+  console.log(`Found ${allFiles.length} file(s).`);
+  totalFiles += allFiles.length;
+
+  for (const filePath of allFiles) {
+    try {
+      // Skip files already present in R2
+      try {
+        await r2.send(new HeadObjectCommand({ Bucket: R2_BUCKET, Key: filePath }));
+        console.log(`  ⏭️  Already in R2: ${filePath}`);
+        skipped++;
+        continue;
+      } catch (e) {
+        if (e.$metadata?.httpStatusCode !== 404) throw e;
+      }
+
+      console.log(`  Uploading: ${filePath}`);
+
+      // createSignedUrl returns a properly URL-encoded link, avoiding fetch
+      // errors on filenames that contain spaces or other special characters.
+      const { data: signedData, error: signedErr } = await supabase.storage
+        .from(bucket)
+        .createSignedUrl(filePath, 300);
+      if (signedErr) throw new Error(`createSignedUrl: ${signedErr.message}`);
+
+      const response = await fetch(signedData.signedUrl);
+      if (!response.ok) throw new Error(`HTTP ${response.status} downloading ${filePath}`);
+      const buffer = Buffer.from(await response.arrayBuffer());
+
+      await r2.send(
+        new PutObjectCommand({
+          Bucket: R2_BUCKET,
+          Key: filePath,
+          Body: buffer,
+          ContentType: getMimeType(filePath),
+        })
+      );
+
+      console.log(`  ✅ Done: ${filePath}`);
+      migrated++;
+    } catch (err) {
+      console.error(`  ❌ Error migrating "${filePath}": ${err.message}`);
+      errors++;
+    }
   }
 }
 
@@ -123,7 +156,7 @@ console.log("\nScanning posts for Supabase image URLs...");
 // Match both space and %20 variants of the bucket name in stored URLs
 const supabaseStorageBase = `${SUPABASE_URL}/storage/v1/object/public/`;
 const urlPattern = new RegExp(
-  `${escapeRegex(supabaseStorageBase)}(?:${escapeRegex("En%20France")}|${escapeRegex("En France")})/`,
+  `${escapeRegex(supabaseStorageBase)}(?:${escapeRegex("En%20France")}|${escapeRegex("En France")}|${escapeRegex("Recettes")})/`,
   "g"
 );
 const r2Base = `${R2_PUBLIC_URL}/`;
@@ -170,7 +203,7 @@ for (const post of posts ?? []) {
 }
 
 console.log("\n--- Migration complete ---");
-console.log(`Files migrated : ${migrated} / ${allFiles.length}`);
+console.log(`Files migrated : ${migrated} / ${totalFiles}`);
 if (skipped) console.log(`Files skipped  : ${skipped}`);
 if (errors) console.log(`Errors         : ${errors}`);
 console.log(`Posts updated  : ${updatedPosts}`);

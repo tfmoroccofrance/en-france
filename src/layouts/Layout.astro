@@ -36,10 +36,10 @@ const socialImageURL = new URL(ogImage, Astro.url);
 const baseStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Recettes Françaises | En France",
+  name: "Recettes Françaises Faciles | En France",
   alternateName: "En France Recettes",
   url: SITE.website,
-  description: "Découvrez les meilleures recettes françaises faciles et rapides. Cuisine maison, plats traditionnels et idées repas pour cuisiner au quotidien en France.",
+  description: "Recettes françaises faciles et rapides pour cuisiner maison au quotidien. Plats traditionnels, idées repas simples et savoureux pour toute la famille.",
   inLanguage: "fr-FR",
   publisher: {
     "@type": "Organization",
@@ -125,7 +125,7 @@ const structuredDataItems = [
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Recettes Françaises | En France" />
+    <meta property="og:site_name" content="Recettes Françaises Faciles | En France" />
     <meta property="og:locale" content="fr_FR" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
@@ -223,23 +223,7 @@ const structuredDataItems = [
   </head>
   <body>
 
-    <!-- Ezoic top_of_page | 101 -->
-    <div id="ezoic-pub-ad-placeholder-101"></div>
-    <script is:inline>
-      ezstandalone.cmd.push(function() {
-        ezstandalone.showAds(101);
-      });
-    </script>
-
     <slot />
-
-    <!-- Ezoic bottom_of_page | 103 -->
-    <div id="ezoic-pub-ad-placeholder-103"></div>
-    <script is:inline>
-      ezstandalone.cmd.push(function() {
-        ezstandalone.showAds(103);
-      });
-    </script>
 
     <!-- Load full theme logic -->
     <script src="../scripts/theme.ts"></script>
