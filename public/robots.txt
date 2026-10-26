@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://tfmorocco.com/sitemap-index.xml
+Sitemap: https://tomoroccotour.com/sitemap-index.xml
 
 # Disallow admin and private pages
 Disallow: /api/

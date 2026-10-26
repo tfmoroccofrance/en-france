@@ -1,6 +1,6 @@
-#Ads.txt tfmorocco.com
+#Ads.txt tomoroccotour.com
 #Ads.txt managed by AdsTxtManager.com - the free ads.txt management tool for publishers
-ownerdomain=tfmorocco.com
+ownerdomain=tomoroccotour.com
 contact=directsales@ezoic.com
 managerdomain=ezoic.ai
 
