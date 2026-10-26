@@ -4,7 +4,6 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
-import EzoicAd from "@/components/EzoicAd.astro";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { fetchFeaturedPosts, fetchLatestPosts } from "@/lib/posts";
@@ -101,10 +100,6 @@ const heroAlt = heroPost?.title || "Recette du moment";
       </div>
     </section>
 
-    <div class="app-layout my-4">
-      <EzoicAd id={180} />
-    </div>
-
     {featuredPosts.length > 0 && (
       <section id="featured" class="app-layout pt-10 pb-6">
         <h2 class="text-base font-semibold tracking-wide sm:text-lg">Recettes à la une</h2>
@@ -129,10 +124,6 @@ const heroAlt = heroPost?.title || "Recette du moment";
         ))}
       </div>
     </section>
-
-    <div class="app-layout my-4">
-      <EzoicAd id={102} />
-    </div>
 
     {hasDatabasePosts && (
       <section id="recent-posts" class="app-layout pt-10 pb-6">

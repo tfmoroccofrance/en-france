@@ -12,7 +12,6 @@ import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
 import RecipeMeta from "@/components/RecipeMeta.astro";
-import EzoicAd from "@/components/EzoicAd.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import { createBreadcrumbSchema, createFaqSchema, createRecipeSchema } from "@/utils/schema";
@@ -130,8 +129,6 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
       </h1>
     </div>
 
-    <div class="mx-auto max-w-3xl my-4"><EzoicAd id={102} /></div>
-
     {description && (
       <p class="mx-auto max-w-2xl text-center text-base leading-relaxed text-foreground/65 mb-6">{description}</p>
     )}
@@ -158,8 +155,6 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
     <article id="article" class="post-article mx-auto mt-8 w-full max-w-3xl prose prose-lg prose-headings:font-serif prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-p:leading-relaxed prose-p:text-foreground/80 prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md prose-img:mx-auto prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)">
       <Content />
     </article>
-
-    <div class="mx-auto max-w-3xl my-6"><EzoicAd id={109} /></div>
 
     {(ingredients?.length || instructions?.length) && (
       <section id="recipe-card" class="recipe-card mx-auto mt-14 max-w-3xl overflow-hidden rounded-2xl border border-border shadow-lg" aria-label="Fiche recette">
@@ -203,8 +198,6 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
             </div>
           )}
 
-          {ingredients?.length && instructions?.length && <EzoicAd id={111} />}
-
           {instructions?.length && (
             <div>
               <h3 class="flex items-center gap-2 text-lg font-bold uppercase tracking-widest text-foreground mb-4">
@@ -243,8 +236,6 @@ const nutritionEntries = nutrition ? Object.entries(nutrition).filter(([, v]) =>
         </div>
       </section>
     )}
-
-    <div class="mx-auto max-w-3xl my-8"><EzoicAd id={110} /></div>
 
     {faq?.length && (
       <section class="mx-auto mt-12 max-w-3xl">
