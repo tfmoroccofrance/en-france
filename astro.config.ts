@@ -14,7 +14,7 @@ import { SITE } from "./src/config";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "server",
   adapter: vercel({
     isr: {
       expiration: 86400,
