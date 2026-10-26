@@ -3,7 +3,6 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
-import EzoicAd from "@/components/EzoicAd.astro";
 import { SITE } from "@/config";
 import { fetchSeoCategories } from "@/lib/categories";
 import { fetchPostsByCategory } from "@/lib/posts";
@@ -58,11 +57,6 @@ const breadcrumbSchema = {
         </p>
       </div>
     </section>
-
-    <!-- Ezoic | 102 | under_page_title -->
-    <div class="app-layout my-6">
-      <EzoicAd id={102} />
-    </div>
 
     <!-- Catégories avec aperçu -->
     <div class="app-layout pt-6 space-y-10">
@@ -128,11 +122,6 @@ const breadcrumbSchema = {
 
         </section>
       ))}
-    </div>
-
-    <!-- Ezoic | 103 | bottom_of_page -->
-    <div class="app-layout my-10">
-      <EzoicAd id={103} />
     </div>
 
     <!-- Texte SEO -->

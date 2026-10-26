@@ -13,7 +13,7 @@ const SUPABASE_KEY =
 if (!SUPABASE_URL) throw new Error("Missing env var: SUPABASE_URL");
 if (!SUPABASE_KEY) throw new Error("Missing env var: SUPABASE_ANON_KEY");
 
-const R2_PUBLIC_URL = "https://images.tfmorocco.com";
+const R2_PUBLIC_URL = "https://images.tomoroccotour.com";
 
 // All old URL prefixes to replace -> new prefix
 const REPLACEMENTS = [

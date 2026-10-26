@@ -1,7 +1,7 @@
 export const SITE = {
-  website: "https://tfmorocco.com/",
+  website: "https://tomoroccotour.com/",
   author: "Equipe En France",
-  profile: "https://tfmorocco.com/a-propos/",
+  profile: "https://tomoroccotour.com/a-propos/",
   desc: "Recettes françaises faciles et rapides pour cuisiner maison au quotidien. Plats traditionnels, idées repas simples et savoureux pour toute la famille.",
   title: "Recettes Françaises Faciles",
   ogImage: "astropaper-og.jpg",

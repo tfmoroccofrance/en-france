@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -150,8 +152,8 @@ const canonicalURL = new URL("/a-propos/", Astro.site).href;
         <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {[
             { icon: "📬", label: "Email général", value: "ftm.contact.1@gmail.com", href: "mailto:ftm.contact.1@gmail.com" },
-            { icon: "✉️", label: "Email professionnel", value: "contact@tfmorocco.com", href: "mailto:contact@tfmorocco.com" },
-            { icon: "🌐", label: "Site web", value: "www.tfmorocco.com", href: "https://www.tfmorocco.com" },
+            { icon: "✉️", label: "Email professionnel", value: "contact@tomoroccotour.com", href: "mailto:contact@tomoroccotour.com" },
+            { icon: "🌐", label: "Site web", value: "www.tomoroccotour.com", href: "https://www.tomoroccotour.com" },
           ].map(item => (
             <div class="rounded-xl border border-border bg-background p-5 text-center shadow-sm">
               <span class="text-2xl">{item.icon}</span>

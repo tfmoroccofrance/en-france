@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -9,7 +11,7 @@ const sections = [
   {
     num: 1,
     title: "Présentation du site",
-    content: `Le site <strong>En France</strong> est une plateforme numérique dédiée au partage de recettes de cuisine française et d'articles culinaires, accessible via <a href="https://www.tfmorocco.com" class="text-accent hover:underline">www.tfmorocco.com</a>. Le site est édité pour un public francophone, ciblant principalement les utilisateurs en France.`
+    content: `Le site <strong>En France</strong> est une plateforme numérique dédiée au partage de recettes de cuisine française et d'articles culinaires, accessible via <a href="https://www.tomoroccotour.com" class="text-accent hover:underline">www.tomoroccotour.com</a>. Le site est édité pour un public francophone, ciblant principalement les utilisateurs en France.`
   },
   {
     num: 2,
@@ -28,8 +30,8 @@ const sections = [
   },
   {
     num: 4,
-    title: "Publicité et cookies (AdSense & Ezoic)",
-    content: `Ce site utilise des services publicitaires tiers tels que <strong>Google AdSense</strong> et <strong>Ezoic</strong> pour diffuser des annonces publicitaires. Ces régies utilisent des cookies pour personnaliser les annonces en fonction de votre navigation. En naviguant sur ce site, vous consentez à la collecte de données via ces cookies conformément au RGPD et à notre <a href="/politique-de-confidentialite/" class="text-accent hover:underline">Politique de Confidentialité</a>.`
+    title: "Publicité et cookies (AdSense)",
+    content: `Ce site utilise le service publicitaire tiers <strong>Google AdSense</strong> pour diffuser des annonces publicitaires. Cette régie utilise des cookies pour personnaliser les annonces en fonction de votre navigation. En naviguant sur ce site, vous consentez à la collecte de données via ces cookies conformément au RGPD et à notre <a href="/politique-de-confidentialite/" class="text-accent hover:underline">Politique de Confidentialité</a>.`
   },
   {
     num: 5,
@@ -122,7 +124,7 @@ const sections = [
           </p>
           <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {[
-              { label: "Email officiel", value: "contact@tfmorocco.com", href: "mailto:contact@tfmorocco.com" },
+              { label: "Email officiel", value: "contact@tomoroccotour.com", href: "mailto:contact@tomoroccotour.com" },
               { label: "Support technique", value: "ftm.contact.1@gmail.com", href: "mailto:ftm.contact.1@gmail.com" },
             ].map(item => (
               <div class="rounded-lg border border-border bg-background p-4 text-center">

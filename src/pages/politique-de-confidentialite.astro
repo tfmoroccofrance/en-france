@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -9,7 +11,7 @@ const sections = [
   {
     num: 1,
     title: "Responsable du traitement",
-    content: `Ce site est édité par <strong>Recettes françaises En France</strong>, accessible à l'adresse <a href="https://www.tfmorocco.com" class="text-accent hover:underline">www.tfmorocco.com</a>. Pour toute question relative à vos données personnelles, vous pouvez nous contacter à : <a href="mailto:contact@tfmorocco.com" class="text-accent hover:underline">contact@tfmorocco.com</a>.`
+    content: `Ce site est édité par <strong>Recettes françaises En France</strong>, accessible à l'adresse <a href="https://www.tomoroccotour.com" class="text-accent hover:underline">www.tomoroccotour.com</a>. Pour toute question relative à vos données personnelles, vous pouvez nous contacter à : <a href="mailto:contact@tomoroccotour.com" class="text-accent hover:underline">contact@tomoroccotour.com</a>.`
   },
   {
     num: 2,
@@ -130,7 +132,7 @@ const sections = [
       <div class="mx-auto max-w-2xl">
         <div class="rounded-2xl border border-border bg-muted/30 px-8 py-8 shadow-sm">
           <p class="text-sm leading-relaxed text-foreground/80">
-            La protection de vos données personnelles est une priorité pour <strong class="text-foreground">Recettes françaises En France</strong>. Cette politique de confidentialité vous informe de manière transparente sur la collecte, l'utilisation et la protection de vos données lorsque vous utilisez notre site <a href="https://www.tfmorocco.com" class="text-accent hover:underline">www.tfmorocco.com</a>.
+            La protection de vos données personnelles est une priorité pour <strong class="text-foreground">Recettes françaises En France</strong>. Cette politique de confidentialité vous informe de manière transparente sur la collecte, l'utilisation et la protection de vos données lorsque vous utilisez notre site <a href="https://www.tomoroccotour.com" class="text-accent hover:underline">www.tomoroccotour.com</a>.
           </p>
         </div>
       </div>
@@ -180,8 +182,8 @@ const sections = [
           </p>
           <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
-              { label: "Site web", value: "www.tfmorocco.com", href: "https://www.tfmorocco.com" },
-              { label: "Email principal", value: "contact@tfmorocco.com", href: "mailto:contact@tfmorocco.com" },
+              { label: "Site web", value: "www.tomoroccotour.com", href: "https://www.tomoroccotour.com" },
+              { label: "Email principal", value: "contact@tomoroccotour.com", href: "mailto:contact@tomoroccotour.com" },
               { label: "Email secondaire", value: "ftm.contact.1@gmail.com", href: "mailto:ftm.contact.1@gmail.com" },
             ].map(item => (
               <div class="rounded-lg border border-border bg-background p-4 text-center">

@@ -5,7 +5,6 @@ import Footer from "@/components/Footer.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
-import EzoicAd from "@/components/EzoicAd.astro";
 import DatabaseRecipeCard from "@/components/DatabaseRecipeCard.astro";
 import type { RecipePost } from "@/types/post";
 import {
@@ -104,11 +103,6 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
 
       </header>
 
-      <!-- Ezoic | 102 | under_page_title -->
-      <div class="my-5">
-        <EzoicAd id={102} />
-      </div>
-
       <!-- الصورة الرئيسية -->
       {post.featuredImage && (
         <img
@@ -134,11 +128,6 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
           Cette recette sera disponible prochainement.
         </div>
       )}
-
-      <!-- Ezoic | 109 | under_first_paragraph -->
-      <div class="my-6 max-w-3xl">
-        <EzoicAd id={109} />
-      </div>
 
       <!-- Interlinks internes -->
       {relatedPosts.length > 0 && (
@@ -180,11 +169,6 @@ const cleanMetaTitle = decodeHtmlEntities(post.metaTitle);
         </div>
       </section>
     )}
-
-    <!-- Ezoic | 103 | bottom_of_page -->
-    <div class="my-8">
-      <EzoicAd id={103} />
-    </div>
 
     <BackToTopButton />
   </main>
